@@ -1,0 +1,84 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="row">
+            <div class="col-sm-11">
+                <h6 class="m-0 font-weight-bold text-primary">Danh sách phiếu thuê phòng</h6>
+            </div>
+            <div class="col-sm-1">
+                <a style="font-size: 12px;" class="btn btn-info" href="/rentroom/create">Thêm mới</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div style="overflow: hidden;" class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
+                            role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                     <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                        colspan="1" aria-sort="ascending"
+                                        aria-label="Name: activate to sort column descending" style="width: 100px;">
+                                        Mã phòng</th>
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                        colspan="1" aria-sort="ascending"
+                                        aria-label="Name: activate to sort column descending" style="width: 200px;">
+                                        Ngày thuê</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Position: activate to sort column ascending"style="width: 200px;">
+                                        Ngày trả</th>
+
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Age: activate to sort column ascending" style="width: 100px;">
+                                         Mã hợp đồng</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Age: activate to sort column ascending" style="width: 100px;">
+                                        Số ngày sử dụng</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Age: activate to sort column ascending" style="width: 200px;">
+                                        Thành tiền</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Age: activate to sort column ascending" style="width: 200px;">
+                                        Trạng thái</th>
+                        
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {{#each data}}
+                                <tr class="odd">
+                                    <td>{{MaPhong}}</td>
+                                    <td>{{NgayThue}}</td>
+                                    <td>{{NgayTra}}</td>
+                                    <td>{{MaHD}}</td>
+                                    <td>{{SoNgaySuDung}}</td>
+                                    <td>{{ThanhTien}}</td>
+                                    <td>{{TrangThaiThanhToan}}</td>
+                                    <td>
+                                        <a class="btn btn-success edit" href="/rentroom/edit/{{MaPhong}}">Sửa</a>
+                                         <a class="btn btn-danger delete" href="/rentroom/delete/{{MaPhong}}">Thanh toán</a> 
+                                        {{!-- 
+                                        <a class="btn btn-danger delete" onclic
+                                            href="/admin/product/delete/{{id}}">Delete</a> --}}
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <nav style="margin-left: 83%;" aria-label="Page navigation example">
+  <ul  class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+            </div>
+        </div>
+    </div>
+</div>

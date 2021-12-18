@@ -1,0 +1,46 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="row">
+            <div class="col-sm-11">
+                <h6 class="m-0 font-weight-bold text-primary">Thêm mới phòng</h6>
+            </div>
+            {{!-- <div class="col-sm-1">
+                <a style="font-size: 12px;" class="btn btn-info" href="/create">Thêm mới</a>
+            </div> --}}
+        </div>
+    </div>
+    <div class="card-body">
+        <div style="overflow: hidden;" class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <form action="/room/create" method="post" id="createForm" >
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Mã phòng</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter email" name="MaPhong" value="{{MaPhong}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Tên phòng</label>
+                        <input type="quanlity" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                            name="name" value="{{name}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Loại phòng</label>
+                        <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                            name="type" value="{{type}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Tình Trạng</label>
+                        <input  class="form-control" id="exampleInputPassword1" placeholder="Password"
+                            name="status" value="{{status}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Ghi Chú</label>
+                          <input class="form-control" id="exampleInputPassword1" placeholder="Password"
+                            name="note" value="{{note}}">
+                    </div>
+                    <button type="submit" class="btn btn-primary" value="create">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
