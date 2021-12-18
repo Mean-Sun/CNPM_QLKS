@@ -62,8 +62,8 @@ app.use('/admin',adminProductRouter);
 app.use('/room',roomRouter);
 app.use('/typeroom',typeRoomRouter);
 app.use('/rentroom',rentRoomRouter);
-app.use('/revenueReport',revenueRouter );
-app.use('/densityReport',densityReportRouter);
+app.use('/revenueReport',revenueRouter);
+app.use('/densityReport',densityRouter);
 app.use('/staff',staffRouter);
 
 

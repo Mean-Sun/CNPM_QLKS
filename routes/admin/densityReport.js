@@ -1,10 +1,13 @@
+var express = require('express');
+var router = express.Router();
+var databaseConfig = require('../../models/db');
+var fs = require('fs');
 
-const express = require('express');
-const router = express.Router();
 
-const densityReportController = require('../controllers/densityReportController');
-
-/* GET home page. */
-router.get('/', densityReportController.list);
-
-module.exports = router;
+// Get view add Product
+router.get('/', function(req, res, next) {
+    res.render('admin/densityReport/index', {
+        layout: 'orther'
+    });
+})
+module.exports = router
