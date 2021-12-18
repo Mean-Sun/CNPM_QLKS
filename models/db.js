@@ -5,7 +5,7 @@ var mysqlConnection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'qlks',
+    database: 'hotel',
     multipleStatements: true
 });
 

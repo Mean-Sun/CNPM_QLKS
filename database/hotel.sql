@@ -300,26 +300,26 @@ CREATE TABLE `phong` (
 -- Đang đổ dữ liệu cho bảng `phong`
 --
 
-INSERT INTO `phong` (`id`, `MaPhong`, `name`, `type`, `status`, `note`) VALUES
-(1, 1, 'P001', 1, 'Đã thuê', NULL),
-(2, 2, 'P002', 1, 'Đã thuê', NULL),
-(3, 3, 'P003', 1, 'Đã thuê', NULL),
-(4, 4, 'P004', 1, 'Trống', NULL),
-(5, 5, 'P005', 1, 'Trống', NULL),
-(6, 6, 'P006', 1, 'Trống', NULL),
-(7, 7, 'P101', 2, 'Trống', NULL),
-(8, 8, 'P102', 2, 'Trống', NULL),
-(9, 9, 'P103', 2, 'Trống', NULL),
-(10, 10, 'P104', 2, 'Trống', NULL),
-(11, 11, 'P105', 2, 'Trống2222222222222', ''),
-(12, 12, 'P106', 2, 'Trống', NULL),
-(13, 13, 'P201', 3, 'Trống', NULL),
-(14, 14, 'P202', 3, 'Trống', NULL),
-(15, 15, 'P203', 3, 'Trống', NULL),
-(16, 16, 'P204', 3, 'Trống', NULL),
-(17, 17, 'P205', 3, 'Trống', NULL),
-(18, 18, 'P206', 3, 'Trống', NULL),
-(19, 123, 'Nguyễn Văn Trung', 1, 'hết', 'adhajkldnawkld');
+INSERT INTO `phong` ( `MaPhong`, `name`, `type`, `status`, `note`) VALUES
+( 1, 'P001', 1, 'Đã thuê', NULL),
+( 2, 'P002', 1, 'Đã thuê', NULL),
+(3, 'P003', 1, 'Đã thuê', NULL),
+(4, 'P004', 1, 'Trống', NULL),
+( 5, 'P005', 1, 'Trống', NULL),
+( 6, 'P006', 1, 'Trống', NULL),
+( 7, 'P101', 2, 'Trống', NULL),
+( 8, 'P102', 2, 'Trống', NULL),
+( 9, 'P103', 2, 'Trống', NULL),
+( 10, 'P104', 2, 'Trống', NULL),
+( 11, 'P105', 2, 'Trống2222222222222', ''),
+( 12, 'P106', 2, 'Trống', NULL),
+( 13, 'P201', 3, 'Trống', NULL),
+( 14, 'P202', 3, 'Trống', NULL),
+( 15, 'P203', 3, 'Trống', NULL),
+( 16, 'P204', 3, 'Trống', NULL),
+( 17, 'P205', 3, 'Trống', NULL),
+( 18, 'P206', 3, 'Trống', NULL),
+( 123, 'Nguyễn Văn Trung', 1, 'hết', 'adhajkldnawkld');
 
 -- --------------------------------------------------------
 
@@ -396,7 +396,7 @@ ALTER TABLE `phieuthuephong`
 -- Chỉ mục cho bảng `phong`
 --
 ALTER TABLE `phong`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`MaPhong`);
 
 --
 -- Chỉ mục cho bảng `quydinh`
@@ -412,7 +412,7 @@ ALTER TABLE `quydinh`
 -- AUTO_INCREMENT cho bảng `phong`
 --
 ALTER TABLE `phong`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `MaPhong` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
