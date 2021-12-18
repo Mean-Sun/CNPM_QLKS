@@ -19,6 +19,8 @@ var roomRouter = require('./routes/admin/room');
 var typeRoomRouter = require('./routes/admin/typeRoom');
 var rentRoomRouter = require('./routes/admin/rentroom');
 var staffRouter = require('./routes/admin/staff');
+var revenueRouter = require('./routes/admin/revenueReport');
+var densityRouter = require('./routes/admin/densityReport');
 var app = express();
 
 // view engine setup
@@ -60,6 +62,8 @@ app.use('/admin',adminProductRouter);
 app.use('/room',roomRouter);
 app.use('/typeroom',typeRoomRouter);
 app.use('/rentroom',rentRoomRouter);
+app.use('/revenueReport',revenueRouter );
+app.use('/densityReport',densityReportRouter);
 app.use('/staff',staffRouter);
 
 
