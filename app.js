@@ -1,25 +1,24 @@
 const mysql = require('mysql');
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const fs = require('fs');
 
 
-var flash = require('express-flash');
-var session = require('express-session');
-var mysqlConnection  = require('./models/db');
-var hbs = require('hbs');
-var session = require('express-session');
-var index = require('./routes/admin/index');
-var adminProductRouter = require('./routes/admin/product');
-var roomRouter = require('./routes/admin/room');
-var typeRoomRouter = require('./routes/admin/typeRoom');
-var rentRoomRouter = require('./routes/admin/rentroom');
-var staffRouter = require('./routes/admin/staff');
-var app = express();
+const flash = require('express-flash');
+const session = require('express-session');
+const mysqlConnection  = require('./models/db');
+const hbs = require('hbs');
+const index = require('./routes/admin/index');
+const adminProductRouter = require('./routes/admin/product');
+const roomRouter = require('./routes/admin/room');
+const typeRoomRouter = require('./routes/admin/typeRoom');
+const rentRoomRouter = require('./routes/admin/rentroom');
+const staffRouter = require('./routes/admin/staff');
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,7 +41,6 @@ app.use(function(req, res, next) {
     next();
 });
 
-flash = require('express-flash')
 app.use(
     session({
       resave: true,

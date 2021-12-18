@@ -115,6 +115,27 @@ router.post('/edit/:Maloai',function(req,res,next){
                 }
             })
     }
-
 })
-module.exports = router
+
+//Xoa
+router.get('/delete/:MaLoai',function(req,res,next){
+    let id = req.params.MaLoai;
+
+    databaseConfig.query('DELETE FROM loaiphong WHERE MaLoai = ' + id, function(err, result) {
+        //if(err) throw err
+        if (err) {
+            // set flash message
+            req.flash('error', err);
+            // redirect to books page
+            res.redirect('/typeRoom/');
+        } else {
+            // set flash message
+            req.flash('success', 'Type of Room successfully deleted! ID = ' + id);
+            // redirect to books page
+            res.redirect('/typeRoom/');
+        }
+    })
+})
+
+
+module.exports = router;

@@ -1,11 +1,11 @@
-var mysql = require('mysql');
+const mysql = require('mysql');
 
 
-var mysqlConnection = mysql.createConnection({
+const mysqlConnection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'hotel',
+    database: 'qlks_update',
     multipleStatements: true
 });
 

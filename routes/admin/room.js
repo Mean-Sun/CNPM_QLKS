@@ -5,7 +5,7 @@ var fs = require('fs');
 
 // Danh sách phòng
 router.get('/', function(req, res, next) {
-    const sql = 'SELECT * FROM phong '
+    const sql = 'SELECT * FROM phong, loaiphong where phong.type = loaiphong.MaLoai '
     databaseConfig.query(sql, function(err, rows) {
         if (err) {
             req.flash('error', err);
@@ -143,7 +143,7 @@ router.get('/delete/(:MaPhong)', function(req, res, next) {
             res.redirect('/room/')
         } else {
             // set flash message
-            req.flash('success', 'Book successfully deleted! ID = ' + id)
+            req.flash('success', 'Room successfully deleted! ID = ' + id)
                 // redirect to books page
             res.redirect('/room/')
         }
