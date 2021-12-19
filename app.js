@@ -22,6 +22,7 @@ const ruleRouter = require('./routes/admin/rule');
 const customerRouter = require('./routes/admin/customer');
 const revenueRouter = require('./routes/admin/revenueReport');
 const densityRouter = require('./routes/admin/densityReport');
+const authRouter = require('./routes/admin/authen');
 const app = express();
 
 // view engine setup
@@ -67,6 +68,27 @@ app.use('/rule-info',ruleRouter);
 app.use('/customer',customerRouter);
 app.use('/revenueReport',revenueRouter);
 app.use('/densityReport',densityRouter);
+
+app.use('/auth', authRouter);
+
+// app.use(function (req, res, next) {
+//   if (req.session.daDangNhap) {
+//     app.use('/', index);
+//     app.use('/admin',adminProductRouter);
+//     app.use('/room',roomRouter);
+//     app.use('/typeroom',typeRoomRouter);
+//     app.use('/rentroom',rentRoomRouter);
+//     app.use('/staff',staffRouter);
+//     app.use('/rule-info',ruleRouter);
+//     app.use('/customer',customerRouter);
+//     app.use('/revenueReport',revenueRouter);
+//     app.use('/densityReport',densityRouter);
+//   }
+//   else{
+//     res.redirect('/auth/login')
+//     // return false
+//   }
+// })
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

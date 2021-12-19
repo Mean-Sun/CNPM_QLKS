@@ -4,7 +4,7 @@ You need to have installed Node and NPM.
 
 Clone this repository
 ``` shell
-git clone https://github.com/nscon160498/ESHOP-CODE
+git clone https://github.com/Mean-Sun/CNPM_QLKS
 ```
 
 Install dependencies
@@ -21,4 +21,7 @@ For Nodemon usage
 ``` shell
 nodemon ./bin/www
 ```
-
+Install encryption settings
+``` shell
+npm i bcrypt
+```

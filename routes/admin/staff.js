@@ -40,6 +40,9 @@ router.post('/create', function (req, res, next) {
     let SDT = req.body.SDT;
     let email = req.body.email;
     let MatKhau = req.body.MatKhau;
+    const bcrypt = require("bcrypt");        
+    var salt = bcrypt.genSaltSync(10);
+    var pass_mahoa = bcrypt.hashSync(MatKhau, salt);
     let Role = req.body.Role;
 
     let errors = false;
@@ -51,7 +54,7 @@ router.post('/create', function (req, res, next) {
             NgaySinh: NgaySinh,
             SDT: SDT,
             email: email,
-            MatKhau: MatKhau,
+            MatKhau: pass_mahoa,
             Role: Role,
         }
         databaseConfig.query('INSERT INTO nhanvien SET ?', form_data, function (err, result) {
@@ -67,7 +70,7 @@ router.post('/create', function (req, res, next) {
                     NgaySinh: form_data.NgaySinh,
                     SDT:form_data.SDT,
                     email:form_data.email,
-                    MatKhau:form_data.MatKhau,
+                    MatKhau:form_data.pass_mahoa,
                     Role:form_data.Role,
                     layout: 'orther',
                 })
@@ -113,6 +116,9 @@ router.post('/edit/:MaNV',function(req,res,next){
     let SDT = req.body.SDT;
     let email = req.body.email;
     let MatKhau = req.body.MatKhau;
+    const bcrypt = require("bcrypt");        
+    var salt = bcrypt.genSaltSync(10);
+    var pass_mahoa = bcrypt.hashSync(MatKhau, salt);
     let Role = req.body.Role;
     let errors = false;
     if (!errors) {
@@ -123,7 +129,7 @@ router.post('/edit/:MaNV',function(req,res,next){
             NgaySinh: NgaySinh,
             SDT: SDT,
             email: email,
-            MatKhau: MatKhau,
+            MatKhau: pass_mahoa,
             Role: Role,
         }
             databaseConfig.query('UPDATE nhanvien SET ? WHERE MaNV = ' + MaNV, form_data, function(err, result) {
@@ -139,7 +145,7 @@ router.post('/edit/:MaNV',function(req,res,next){
                         NgaySinh: form_data.NgaySinh,
                         SDT:form_data.SDT,
                         email:form_data.email,
-                        MatKhau:form_data.MatKhau,
+                        MatKhau:form_data.pass_mahoa,
                         Role:form_data.Role,
                         layout: 'orther',
                     })
