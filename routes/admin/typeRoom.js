@@ -5,7 +5,7 @@ var fs = require('fs');
 
 //hiện thị danh sách loại phòng
 router.get('/', function (req, res, next) {
-    const sql = 'SELECT * FROM loaiphong'
+    const sql = 'SELECT * FROM loaiphong ORDER BY MaLoai'
     databaseConfig.query(sql, function (err, rows) {
         if (err) {
             req.flash('error', err);
