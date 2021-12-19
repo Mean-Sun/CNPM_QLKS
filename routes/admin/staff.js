@@ -1,7 +1,7 @@
-var express = require('express');
-var     router = express.Router();
-var databaseConfig = require('../../models/db');
-var fs = require('fs');
+const express = require('express');
+const router = express.Router();
+const databaseConfig = require('../../models/db');
+const fs = require('fs');
 
 // Danh sách nhân viên
 router.get('/', function (req, res, next) {

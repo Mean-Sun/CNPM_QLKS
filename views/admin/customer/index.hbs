@@ -5,7 +5,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">Danh sách khách hàng</h6>
             </div>
             <div class="col-sm-1">
-                <a style="font-size: 12px;" class="btn btn-info" href="/staff/create">Thêm khách hàng</a>
+                <a style="font-size: 12px;" class="btn btn-info" href="/customer/create">Thêm khách hàng</a>
             </div>
         </div>
     </div>
@@ -24,19 +24,19 @@
                                     #</th>
                                 <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
                                     colspan="1" aria-sort="ascending"
-                                    aria-label="Name: activate to sort column descending" style="width: 150px;">
+                                    aria-label="Name: activate to sort column descending" style="width: 250px;">
                                     Tên KH</th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                     aria-label="Position: activate to sort column ascending"
-                                    style="width: 350px;">CMND</th>
+                                    style="width: 150px;">CMND</th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                     aria-label="Office: activate to sort column ascending" style="width: 200px">
                                     SĐT</th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Age: activate to sort column ascending" style="width: 100.453px;">
+                                    aria-label="Age: activate to sort column ascending" style="width: 250px;">
                                     Địa Chỉ</th>
                                 <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Age: activate to sort column ascending" style="width: 100.453px;">
+                                    aria-label="Age: activate to sort column ascending" style="width: 150px;">
                                     Loại KH</th>
                             </tr>
                             </thead>
@@ -49,10 +49,10 @@
                                     <td>{{CMND}}</td>
                                     <td>{{SDT}}</td>
                                     <td>{{DiaChi}}</td>
-                                    <td>{{LoaiKH}}</td>
+                                    <td>{{TenLoai}}</td>
                                     <td>
-                                        <a class="btn btn-success edit" href="/staff/edit/{{MaKH}}">Edit</a>
-                                        <a class="btn btn-danger delete" href="/staff/delete/{{MaKH}}">Delete</a>
+                                        <a class="btn btn-success edit" href="/customer/edit/{{MaKH}}">Edit</a>
+                                        <a class="btn btn-danger delete" href="/customer/delete/{{MaKH}}">Delete</a>
                                     </td>
                                 </tr>
                             {{/each}}

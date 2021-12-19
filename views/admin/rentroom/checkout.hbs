@@ -4,14 +4,33 @@
         <div class="checkout-container">
             <h1>Thông tin thanh toán</h1>
             <br>
-            <form action="" method="post">
-                <div class="mb-3" style="display: inline-block">
+            <form onsubmit="return false;">
+                <div class="mb-3" style="display: inline-block" id="nameSearch">
                     <label class="form-label">Tên khách hàng</label>
-                    <input type="text" class="form-control" id="checkout_form_input-cus" name="room">
-                    <div id="select-cus-help" class="form-text"></div>
+                    <input type="text" class="form-control" id="checkout_form_input-cus" name="customername_forsearch">
+                    
+                   
                 </div>
-                <button type="button" class="btn btn-success" onclick="checkout_search_customer();">Tìm kiếm
-                </button>
+                <button type="button" class="btn btn-success " onclick="checkout_search_customer(); " id = "nameSearch-btn">Tìm kiếm</button>
+                 <a href="/rentroom/checkout" ><button type="button" class="btn btn-danger d-inline-block float-right" id="exit-btn" style="margin-left: auto; margin-right:auto;">Hủy</button>
+                 </a>
+
+                {{!-- message --}}
+                <div id="search-cus-help" class="form-text"></div>
+                <div id="customer-info" class="d-none">
+                    <div class="mb-3" >
+                        <label class="form-label">Tên khách hàng</label>
+                        <input type="text" class="form-control d-none" id="checkout_form_customer_id" name="MaKH" disabled > 
+                        <input type="text" class="form-control " id="checkout_form_customer_name" name="TenKH" disabled > 
+                    
+                    </div>
+            
+                    <div class="mb-3 " >
+                        <label class="form-label">Ngày Lập</label>
+                        <input type="text" class="form-control " id="checkout_form_date" name="NgayLap" disabled > 
+                    
+                    </div>
+                </div>
                 <table class="table d-none" id="select-cus-show">
                     <thead>
                     <tr>
@@ -28,35 +47,78 @@
                     
                     </tbody>
                 </table>
+                {{!-- message --}}
+                 <div id="select-cus-help-table" class="form-text"></div>
                 <!-- <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
                 </div> -->
+                 <table class="table d-none" id="select-room-show">
+                    <thead>
+                    <tr>
+                        <th scope="col" style="width: 20px;">#</th>
+                        <th scope="col" style="width: 300px;">Phòng</th>
+          
+                        <th scope="col" style="width: 100px;">Ngày thuê</th>
+                        <th scope="col" style="width: 100px;">Tình trạng</th>
+                        <th scope="col" style="width: 200px;">Thêm vào hóa đơn</th>
 
+                    </tr>
+                    </thead>
+                    <tbody id="checkout_form_room-information">
+                    
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-success d-none" onclick="checkout();" id = "confirm-btn" style="margin: 0 auto;">Thanh toán</button>
+                <table class="table d-none" id="bill-show">
+                    <thead>
+                    <tr>
+                        <th scope="col" style="width: 20px;">#</th>
+                        <th scope="col" style="width: 300px;">Phòng</th>
+          
+                        <th scope="col" style="width: 100px;">Số ngày thuê</th>
+                        <th scope="col" style="width: 100px;">Đơn giá</th>
+                        <th scope="col" style="width: 200px;">Thành tiền</th>
+
+                    </tr>
+                    </thead>
+                    <tbody id="bill-show-room">
+                    
+                    </tbody>
+                </table>
             </form>
         </div>
     </div>
 </div>
+
+
 <script>
     function checkout_search_customer(){
         var name = document.querySelector("#checkout_form_input-cus").value;
         const xhttp = new XMLHttpRequest();
         xhttp.onload = function() {
             var result = JSON.parse(this.responseText);
-
+            if (result.length <= 0){
+                 document.querySelector("#search-cus-help").innerHTML="Khách hàng không tồn tại!";
+                 return;
+            }
+           
+                document.querySelector("#search-cus-help").innerHTML="";
                 document.querySelector("#checkout_form_customer-information").innerHTML="";
                 for(i=0; i<result.length;i++){
                     var temp = document.createElement("tr");
+                    
                     temp.innerHTML = `
                     
                         <th scope="row">${i+1}</th>
-                        <td>${result[i].TenKH}</td>
+                        <td id="${result[i].MaKH}">${result[i].TenKH}</td>
                         <td>
                             ${result[i].CMND}
                         </td>
                         <td>${result[i].SDT}</td>
                         <td>
-                            <button type="button" class="btn btn-secondary">Tạo hóa đơn</i></button>
+                            <button type="button" class="btn btn-primary" onclick="checkout_select_room(${result[i].MaKH})" >Tạo hóa đơn</i></button>
+                            
                         </td>
                     `
                     document.querySelector("#checkout_form_customer-information").appendChild(temp);
@@ -68,5 +130,168 @@
             }
         xhttp.open("GET", "getcustomer?name=" + name);
         xhttp.send();
+    }
+
+
+
+    function checkout_select_room(makh){
+        const xhttp = new XMLHttpRequest();
+        document.getElementById("checkout_form_customer_id").value = `${makh}`
+        document.getElementById("checkout_form_customer_name").value = document.getElementById(`${makh}`).innerHTML
+        var day = new Date().toISOString().slice(0, 10);
+        document.getElementById("checkout_form_date").value = day;
+        document.getElementById("customer-info").classList.remove("d-none");
+        document.getElementById("select-cus-show").classList.add("d-none");
+        document.getElementById("nameSearch").classList.add("d-none");
+        document.getElementById("nameSearch-btn").classList.add("d-none");
+
+
+
+        xhttp.onload = function() {
+            var result = JSON.parse(this.responseText);
+            if (result.length <= 0){
+                 document.querySelector("#select-cus-help-table").innerHTML="Khách hàng hiện tại không thuê phòng!";
+                 return;
             }
+           
+                document.querySelector("#select-cus-help-table").innerHTML="";
+                document.querySelector("#checkout_form_room-information").innerHTML="";
+                for(i=0; i<result.length;i++){
+                    var temp = document.createElement("tr");
+                    
+                    temp.innerHTML = `
+                    
+                        <th scope="row">${i+1}</th>
+                        <td>${result[i].name}</td>
+                        <td>
+                            ${result[i].NgayThue}
+                        </td>
+                        <td >${result[i].TrangThaiThanhToan}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary room-to-checkout" onclick="checkout_select_add_room_to_bill(${result[i].MaPhong})" value="no" MaPH = "${result[i].MaPhong}" NgayThue = "${result[i].NgayThue}">Thêm vào hóa đơn</i></button>                            
+                        </td>
+                    `
+                    document.querySelector("#checkout_form_room-information").appendChild(temp);
+
+                }
+        document.querySelector("#select-room-show").classList.remove("d-none");
+                
+
+            }
+        xhttp.open("GET", "checkout/selectroom?maKH=" + makh);
+        xhttp.send();
+    }        
+   
+    function checkout_select_add_room_to_bill(MaPhong){
+        if( event.target.value == "no"){
+            event.target.value= "yes"
+            event.target.classList.remove("btn-primary");
+            event.target.classList.add("btn-secondary");
+            event.target.innerHTML = "";
+            event.target.innerHTML = "Xóa khỏi hóa đơn";
+            check_btn();
+        }
+        else{
+            event.target.value= "no"
+            event.target.classList.remove("btn-secondary");
+            event.target.classList.add("btn-primary");
+            event.target.innerHTML = "";
+            event.target.innerHTML = "Thêm vào hóa đơn";
+            check_btn();
+        }  
+    }
+
+    function checkout(){
+        var cus_id = document.getElementById("checkout_form_customer_id").value;
+        var NgayLap = document.getElementById("checkout_form_date").value;
+        var DS = [];
+        var rooms = document.querySelectorAll(".room-to-checkout");
+        for(i=0;i<rooms.length;i++){
+            if(rooms[i].value == "yes"){
+                var temp = {MaPH:"",NgayThue:""}
+                temp.MaPH = (parseInt(rooms[i].getAttribute("maph")));
+                var date_plus = new Date(rooms[i].getAttribute("ngaythue"));
+                
+                date_plus.setDate(date_plus.getDate() + 1);
+                temp.NgayThue = date_plus.toISOString().slice(0, 10);
+                DS.push(temp);
+            }
+        }
+        DS = JSON.stringify(DS);
+        var tosend = `MaKH=${cus_id}&NgayLap=${NgayLap}&DS=${DS}`
+        const xhttp = new XMLHttpRequest();
+
+
+        xhttp.onload = function() {
+            console.log(this.responseText);
+            var result = JSON.parse(this.responseText);
+            var GiaTri = result.GiaTri;
+            result = result.PTs;
+            document.getElementById("bill-show").classList.remove("d-none");
+             
+            for(i=0; i<result.length;i++){
+                    var temp = document.createElement("tr");
+                    
+                    temp.innerHTML = `
+                    
+                        <th scope="row">${i+1}</th>
+                        <td>${result[i].name}</td>
+                        <td>
+                            ${result[i].SoNgaySuDung}
+                        </td>
+                        <td >${result[i].DonGia} vnđ</td>
+                        <td>                            
+                            ${result[i].ThanhTien} vnđ   
+                        </td>
+                    `
+                    document.querySelector("#bill-show-room").appendChild(temp);
+
+            }
+            var temp = document.createElement("tr");
+                    
+                    temp.innerHTML = `
+                    
+                        <th scope="row"></th>
+                        <td colspan="3"><b>Tổng giá trị hóa đơn</b></td>
+        
+                        <td>                            
+                            <b>${GiaTri} vnđ</b>   
+                        </td>
+                    `
+                    document.querySelector("#bill-show-room").appendChild(temp);
+            document.getElementById("exit-btn").classList.remove("btn-danger");
+            document.getElementById("exit-btn").classList.add("btn-primary");
+            document.getElementById("exit-btn").innerHTML = "";
+            document.getElementById("exit-btn").innerHTML = "Thoát";
+            document.getElementById("confirm-btn").classList.add("d-none");
+            document.getElementById("confirm-btn").classList.remove("d-block");
+            document.getElementById("select-room-show").classList.add("d-none");
+            
+            
+        }
+        xhttp.open("POST", "checkout");
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(tosend);
+
+    }
+
+   function check_btn(){
+        var DS = [];
+        var rooms = document.querySelectorAll(".room-to-checkout");
+        for(i=0;i<rooms.length;i++){
+            if(rooms[i].value == "yes"){
+                DS.push(parseInt(rooms[i].getAttribute("maph")))
+            }
+        }
+       if(DS.length == 0){
+           document.getElementById("confirm-btn").classList.remove("d-block");
+           document.getElementById("confirm-btn").classList.add("d-none");
+           
+       }
+       else{
+            document.getElementById("confirm-btn").classList.remove("d-none");
+            document.getElementById("confirm-btn").classList.add("d-block");
+       }
+   }
 </script>
+

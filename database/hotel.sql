@@ -65,8 +65,7 @@ CREATE TABLE `hoadon` (
 -- Dumping data for table `hoadon`
 --
 
-INSERT INTO `hoadon` (`MaHD`, `MaKH`, `NgayLap`, `GiaTri`) VALUES
-(1, 1, '2021-12-10', 0);
+
 
 -- --------------------------------------------------------
 
@@ -302,6 +301,7 @@ CREATE TABLE `phong` (
 INSERT INTO `phong` (`MaPhong`, `name`, `type`, `status`, `note`) VALUES
 (3, 'P003', 1, 'Trống', ''),
 (4, 'P004', 1, 'Trống', NULL),
+<<<<<<< HEAD
 (5, 'P005', 1, 'Trống', NULL),
 (6, 'P006', 1, 'Trống', NULL),
 (7, 'P101', 2, 'Trống', NULL),
@@ -316,6 +316,23 @@ INSERT INTO `phong` (`MaPhong`, `name`, `type`, `status`, `note`) VALUES
 (16, 'P204', 3, 'Trống', NULL),
 (17, 'P205', 3, 'Trống', NULL),
 (23, 'PV10', 1, 'Trống', '');
+=======
+( 5, 'P005', 1, 'Trống', NULL),
+( 6, 'P006', 1, 'Trống', NULL),
+( 7, 'P101', 2, 'Trống', NULL),
+( 8, 'P102', 2, 'Trống', NULL),
+( 9, 'P103', 2, 'Trống', NULL),
+( 10, 'P104', 2, 'Trống', NULL),
+( 11, 'P105', 2, 'Trống', ''),
+( 12, 'P106', 2, 'Trống', NULL),
+( 13, 'P201', 3, 'Trống', NULL),
+( 14, 'P202', 3, 'Trống', NULL),
+( 15, 'P203', 3, 'Trống', NULL),
+( 16, 'P204', 3, 'Trống', NULL),
+( 17, 'P205', 3, 'Trống', NULL),
+( 18, 'P206', 3, 'Trống', NULL),
+( 123, 'Nguyễn Văn Trung', 1, 'hết', 'adhajkldnawkld');
+>>>>>>> d08dbaad549b2dbd2b694c2798b63779e27f21aa
 
 -- --------------------------------------------------------
 
@@ -409,7 +426,16 @@ ALTER TABLE `quydinh`
 -- AUTO_INCREMENT for table `phong`
 --
 ALTER TABLE `phong`
+<<<<<<< HEAD
   MODIFY `MaPhong` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+=======
+  MODIFY `MaPhong` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+ALTER TABLE `HoaDon`
+  MODIFY `MaHD` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+ALTER TABLE `KhachHang`
+  MODIFY `MaKH` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+>>>>>>> d08dbaad549b2dbd2b694c2798b63779e27f21aa
 
 --
 -- AUTO_INCREMENT for table `quydinh`
@@ -444,3 +470,12 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+INSERT INTO `hoadon` ( `MaHD`,`MaKH`, `NgayLap`, `GiaTri`) VALUES
+( 1, 1, '2021-12-10', null);
+INSERT INTO `hoadon` ( `MaKH`, `NgayLap`, `GiaTri`) VALUES
+( 4, '2021-12-10', null),
+( 5, '2021-12-10', null);
+
+UPDATE PhieuThuePhong
+Set MaHD = 1
+where MaPhong = 1 and NgayThue = '2021-12-01T17:00:00.000Z'
