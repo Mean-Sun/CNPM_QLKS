@@ -19,6 +19,8 @@ const typeRoomRouter = require('./routes/admin/typeRoom');
 const rentRoomRouter = require('./routes/admin/rentroom');
 const staffRouter = require('./routes/admin/staff');
 const customerRouter = require('./routes/admin/customer');
+const revenueRouter = require('./routes/admin/revenueReport');
+const densityRouter = require('./routes/admin/densityReport');
 const app = express();
 
 // view engine setup
@@ -61,6 +63,8 @@ app.use('/typeroom',typeRoomRouter);
 app.use('/rentroom',rentRoomRouter);
 app.use('/staff',staffRouter);
 app.use('/customer',customerRouter);
+app.use('/revenueReport',revenueRouter);
+app.use('/densityReport',densityRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
