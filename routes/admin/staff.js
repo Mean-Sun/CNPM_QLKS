@@ -158,7 +158,7 @@ router.get('/delete/(:MaNV)', function (req, res, next) {
 
     let id = req.params.MaNV;
 
-    databaseConfig.query('DELETE FROM phong WHERE MaNV = ' + id, function (err, result) {
+    databaseConfig.query('DELETE FROM nhanvien WHERE MaNV = ' + id, function (err, result) {
         //if(err) throw err
         if (err) {
             // set flash message

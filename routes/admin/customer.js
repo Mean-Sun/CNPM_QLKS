@@ -51,11 +51,8 @@ router.post('/create', function (req, res, next) {
             LoaiKH: LoaiKH,
         }
         databaseConfig.query('INSERT INTO khachhang SET ?', form_data, function (err, result) {
-            if (err) {
-                // console.log(form_data.image);
+            if (err) {              
                 req.flash('error', err)
-                console.log(err)
-                // render to add.ejs
                 res.render('admin/customer/create', {
                     MaKH: form_data.MaKH,
                     TenKH: form_data.TenKH,
@@ -116,7 +113,6 @@ router.post('/edit/:MaKH',function(req,res,next){
         }
         databaseConfig.query('UPDATE khachhang SET ? WHERE MaKH = ' + MaKH, form_data, function(err, result) {
             if (err) {
-                console.log(form_data);
                 req.flash('error', err)
                 // render to add.ejs
                 res.render('admin/customer/edit', {

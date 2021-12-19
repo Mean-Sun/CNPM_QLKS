@@ -20,40 +20,47 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Tên nhân viên</label>
-                        <input type="quanlity" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                        <input type="text" class="form-control" id="exampleInputPassword1" 
                             name="TenNV" value="{{TenNV}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Địa chỉ</label>
-                        <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                        <input type="number" class="form-control" id="exampleInputPassword1" 
                             name="DiaChi" value="{{DiaChi}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Ngày sinh</label>
-                        <input type="date" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                        <input type="date" class="form-control" id="exampleInputPassword1" 
                             name="NgaySinh" value="{{NgaySinh}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Số điện thoại</label>
-                          <input class="form-control" id="exampleInputPassword1" placeholder="Password"
+                          <input class="form-control" id="exampleInputPassword1" 
                             name="SDT" value="{{SDT}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Email</label>
-                          <input class="form-control" id="exampleInputPassword1" placeholder="Password"
+                          <input class="form-control" id="exampleInputPassword1" 
                             name="email" value="{{email}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Mật khẩu</label>
-                          <input class="form-control" id="exampleInputPassword1" placeholder="Password"
+                          <input class="form-control" id="exampleInputPassword1" 
                             name="MatKhau" value="{{MatKhau}}">
                     </div>
-                    <div class="form-group">
+                    {{!-- <div class="form-group">
                         <label for="exampleFormControlFile1">Chức vụ</label>
-                          <input class="form-control" id="exampleInputPassword1" placeholder="Password"
+                          <input class="form-control" id="exampleInputPassword1" 
                             name="Role" value="{{Role}}">
-                    </div>
-                    <button type="submit" class="btn btn-primary" value="create">Submit</button>
+                    </div> --}}
+                     <div class="form-group"></div>
+                        <label for="exampleFormControlFile1">Chức vụ</label>
+                        <select class="form-select" id="exampleInputPassword1" aria-label="Default select example" name="Role" >
+                            <option value="quản lý">ADMIN</option>
+                            <option value="nhân viên">Nhân viên</option>
+                        </select>
+                     </div>
+                    <button type="submit" class="btn btn-primary mt-2" value="create">Submit</button>
                 </form>
             </div>
         </div>

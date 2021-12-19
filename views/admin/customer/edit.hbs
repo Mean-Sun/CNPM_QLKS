@@ -12,36 +12,41 @@
     <div class="card-body">
         <div style="overflow: hidden;" class="table-responsive">
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                <form action="/customer/edit/{{MaKH}}" method="post" id="createForm" >
+                <form action="/customer/edit/{{MaKH}}" method="post" id="createForm">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Mã khách hàng</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                               placeholder="Enter email" name="MaKH" value="{{MaKH}}">
+                        <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter email" name="MaKH" value="{{MaKH}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Tên khách hàng</label>
-                        <input type="quanlity" class="form-control" id="exampleInputPassword1"
-                               name="TenKH" value="{{TenKH}}">
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="TenKH"
+                            value="{{TenKH}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">CMND</label>
-                        <input type="number" class="form-control" id="exampleInputPassword1"
-                               name="CMND" value="{{CMND}}">
+                        <input type="number" class="form-control" id="exampleInputPassword1" name="CMND"
+                            value="{{CMND}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Số điện thoại</label>
-                        <input class="form-control" id="exampleInputPassword1"
-                               name="SDT" value="{{SDT}}">
+                        <input class="form-control" id="exampleInputPassword1" style="number" name="SDT"
+                            value="{{SDT}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Địa chỉ</label>
-                        <input type="quanlity" class="form-control" id="exampleInputPassword1"
-                               name="DiaChi" value="{{DiaChi}}">
+                        <input type="text" class="form-control" id="exampleInputPassword1" name="DiaChi"
+                            value="{{DiaChi}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Mã loại KH</label>
-                        <input class="form-control" id="exampleInputPassword1"
-                               name="LoaiKH" value="{{LoaiKH}}">
+                        {{!-- <input class="form-control" id="exampleInputPassword1" name="LoaiKH" value="{{LoaiKH}}">
+                        --}}
+                        <select class="form-select" id="exampleInputPassword1" aria-label="Default select example"
+                            name="LoaiKH">
+                            <option value="Khách nội địa">Khách nội địa</option>
+                            <option value="Khách nước ngoài">Khách nước ngoài</option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary" value="edit">Submit</button>
                 </form>

@@ -26,9 +26,26 @@ router.get('/', function(req, res, next) {
 
 // Get view add Product
 router.get('/create', function(req, res, next) {
-    res.render('admin/room/create', {
-        layout: 'orther'
-    });
+    // res.render('admin/room/create', {
+    //     layout: 'orther'
+    // });
+    const sql = 'Select MaLoai FROM loaiphong'
+    databaseConfig.query(sql, function(err, rows) {
+        if (err) {
+            req.flash('error', err);
+            res.render('admin/room/index', {
+                data: '',
+                layout: 'orther'
+            });
+        } else {
+            console.log(rows);
+            res.render('admin/room/create', {
+                data: rows,
+                layout: 'orther'
+            });
+        }
+
+    })
 })
 
 // add room

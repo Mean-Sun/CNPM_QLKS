@@ -23,10 +23,19 @@
                         <input type="quanlity" class="form-control" id="exampleInputPassword1" placeholder="Tên phòng"
                             name="name" value="{{name}}">
                     </div>
-                    <div class="form-group">
+                    {{!-- <div class="form-group">
                         <label for="exampleInputPassword1">Loại phòng</label>
                         <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Loại phòng"
                             name="type" value="{{type}}">
+                    </div> --}}
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Loại phòng</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="type">
+                             {{#each data}}
+                                <option value="{{MaLoai}}">{{MaLoai}}</option>
+                            {{/each}}
+                           
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Tình Trạng</label>
