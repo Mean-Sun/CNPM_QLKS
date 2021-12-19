@@ -65,8 +65,7 @@ CREATE TABLE `hoadon` (
 -- Đang đổ dữ liệu cho bảng `hoadon`
 --
 
-INSERT INTO `hoadon` (`MaHD`, `MaKH`, `NgayLap`, `GiaTri`) VALUES
-(1, 1, '2021-12-10', 0);
+
 
 -- --------------------------------------------------------
 
@@ -311,7 +310,7 @@ INSERT INTO `phong` ( `MaPhong`, `name`, `type`, `status`, `note`) VALUES
 ( 8, 'P102', 2, 'Trống', NULL),
 ( 9, 'P103', 2, 'Trống', NULL),
 ( 10, 'P104', 2, 'Trống', NULL),
-( 11, 'P105', 2, 'Trống2222222222222', ''),
+( 11, 'P105', 2, 'Trống', ''),
 ( 12, 'P106', 2, 'Trống', NULL),
 ( 13, 'P201', 3, 'Trống', NULL),
 ( 14, 'P202', 3, 'Trống', NULL),
@@ -412,7 +411,12 @@ ALTER TABLE `quydinh`
 -- AUTO_INCREMENT cho bảng `phong`
 --
 ALTER TABLE `phong`
-  MODIFY `MaPhong` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `MaPhong` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+ALTER TABLE `HoaDon`
+  MODIFY `MaHD` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+ALTER TABLE `KhachHang`
+  MODIFY `MaKH` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -448,3 +452,12 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+INSERT INTO `hoadon` ( `MaHD`,`MaKH`, `NgayLap`, `GiaTri`) VALUES
+( 1, 1, '2021-12-10', null);
+INSERT INTO `hoadon` ( `MaKH`, `NgayLap`, `GiaTri`) VALUES
+( 4, '2021-12-10', null),
+( 5, '2021-12-10', null);
+
+UPDATE PhieuThuePhong
+Set MaHD = 1
+where MaPhong = 1 and NgayThue = '2021-12-01T17:00:00.000Z'

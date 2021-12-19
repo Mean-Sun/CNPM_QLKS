@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var databaseConfig = require('../../models/db');
 var fs = require('fs');
+const { resolve } = require('path');
 
 // Danh sách phiếu thuê phòng
 router.get('/', function(req, res, next) {
@@ -159,11 +160,112 @@ router.get('/getcustomer', function(req, res, next) {
             req.flash('error', err);
             res.send(err.message);
         } else {
-            console.log(rows);
+            //console.log(rows);
 
             res.send(rows);
         }
     })
+})
+
+
+router.get('/checkout/selectroom', function(req, res, next) {
+    let id = req.query.maKH;
+    const sql = `SELECT distinct p.name,pt.MaPhong, pt.NgayThue, pt.TrangThaiThanhToan FROM PhieuThuePhong pt join CT_PhieuThuePhong ct on pt.MaPhong = ct.MaPhong
+                join Phong p on pt.MaPhong = p.MaPhong
+                where ct.MaKH =${id} and pt.TrangThaiThanhToan = 'Chưa thanh toán'`
+    databaseConfig.query(sql, function(err, rows, fields) {
+        if (err) {
+            req.flash('error', err);
+            res.send(err.message);
+        } else {
+            res.send(rows);
+        }
+    })
+})
+
+router.post('/checkout', function(req, res, next) {
+
+    var MaKH = parseInt(req.body.MaKH);
+    var NgayLap = req.body.NgayLap;
+    var rooms = JSON.parse(req.body.DS);
+    console.log(rooms)
+    var MaHD;
+    var GiaTri;
+    var PTs;
+    var sql = `INSERT INTO hoadon (MaKH, NgayLap, GiaTri) VALUES
+                ( ${MaKH}, '${NgayLap}', NULL)`
+    databaseConfig.query(sql, function(err, rows, fields) {
+        if (err) {
+            req.flash('error', err);
+            res.send(err.message);
+        } else {
+            console.log(rows);
+            sql = `SELECT max(MaHD) "MaHD" FROM hoadon WHere MaKH = ${MaKH} AND NgayLap = '${NgayLap}'`
+
+
+            databaseConfig.query(sql, function(err, rows, fields) {
+                if (err) {
+                    req.flash('error', err);
+                    res.send(err.message);
+                } else {
+                    console.log(rows);
+                    MaHD = rows[0].MaHD;
+                    sql = ``;
+                    for (i = 0; i < rooms.length; i++) {
+                        sql += `UPDATE PhieuThuePhong
+                                Set MaHD = ${MaHD}
+                                where MaPhong = ${rooms[i].MaPH} and NgayThue = '${rooms[i].NgayThue}';`
+                    }
+
+                    console.log(sql);
+                    databaseConfig.query(sql, function(err, rows, fields) {
+                        if (err) {
+                            req.flash('error', err);
+                            res.send(err.message);
+                        } else {
+                            console.log(rows);
+                            sql = `SELECT GiaTri FROM hoadon WHere MaHD = ${MaHD}`
+
+                            databaseConfig.query(sql, function(err, rows, fields) {
+                                if (err) {
+                                    req.flash('error', err);
+                                    res.send(err.message);
+                                } else {
+                                    console.log(rows);
+                                    GiaTri = rows[0].GiaTri;
+                                    sql = `SELECT pt.*, l.DonGia,p.name FROM PhieuThuePhong pt join Phong p on pt.MaPhong = p.MaPhong
+                                                    Join LoaiPhong l on p.type  = l.MaLoai
+                                                    
+                                    WHere MaHD = ${MaHD}`
+
+                                    databaseConfig.query(sql, function(err, rows, fields) {
+                                        if (err) {
+                                            req.flash('error', err);
+                                            res.send(err.message);
+                                        } else {
+                                            console.log(rows);
+                                            PTs = rows;
+                                            var result = { GiaTri: GiaTri, PTs: PTs }
+                                            res.send(result);
+                                        }
+                                    })
+
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+        }
+    })
+
+
+
+
+
+
+
+
 })
 
 module.exports = router
