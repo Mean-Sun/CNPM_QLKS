@@ -1,0 +1,72 @@
+   
+<div class="main-background">
+    <div class="container-fluid">
+        <div class="checkout-container">
+            <h1>Thông tin thanh toán</h1>
+            <br>
+            <form action="" method="post">
+                <div class="mb-3" style="display: inline-block">
+                    <label class="form-label">Tên khách hàng</label>
+                    <input type="text" class="form-control" id="checkout_form_input-cus" name="room">
+                    <div id="select-cus-help" class="form-text"></div>
+                </div>
+                <button type="button" class="btn btn-success" onclick="checkout_search_customer();">Tìm kiếm
+                </button>
+                <table class="table d-none" id="select-cus-show">
+                    <thead>
+                    <tr>
+                        <th scope="col" style="width: 20px;">#</th>
+                        <th scope="col" style="width: 300px;">Tên khách hàng</th>
+          
+                        <th scope="col" style="width: 100px;">CMND</th>
+                        <th scope="col" style="width: 100px;">Số  điện thoại</th>
+                        <th scope="col" style="width: 200px;">Tạo hóa đơn</th>
+
+                    </tr>
+                    </thead>
+                    <tbody id="checkout_form_customer-information">
+                    
+                    </tbody>
+                </table>
+                <!-- <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div> -->
+
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function checkout_search_customer(){
+        var name = document.querySelector("#checkout_form_input-cus").value;
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            var result = JSON.parse(this.responseText);
+
+                document.querySelector("#checkout_form_customer-information").innerHTML="";
+                for(i=0; i<result.length;i++){
+                    var temp = document.createElement("tr");
+                    temp.innerHTML = `
+                    
+                        <th scope="row">${i+1}</th>
+                        <td>${result[i].TenKH}</td>
+                        <td>
+                            ${result[i].CMND}
+                        </td>
+                        <td>${result[i].SDT}</td>
+                        <td>
+                            <button type="button" class="btn btn-secondary">Tạo hóa đơn</i></button>
+                        </td>
+                    `
+                    document.querySelector("#checkout_form_customer-information").appendChild(temp);
+
+                }
+                document.querySelector("#select-cus-show").classList.remove("d-none");
+                
+
+            }
+        xhttp.open("GET", "getcustomer?name=" + name);
+        xhttp.send();
+            }
+</script>
