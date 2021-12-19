@@ -222,14 +222,14 @@ CREATE TRIGGER `before_phieuthuephong_insert` BEFORE INSERT ON `phieuthuephong` 
 		if (select count(*) from CT_PhieuThuePhong ct WHERE ct.MaPhong = NEW.MaPhong and ct.NgayThue = NEW.NgayThue) >= (select `value` from QuyDinh where `key`= 'SLToiDa') THEN
 				set @PhuThu = (select `value` from QuyDinh where `key`= 'PhuThu');
                 end if;
-		set NEW.ThanhTien = (select DonGia from LoaiPhong lp join Phong p on lp.MaLoai = p.LoaiPhong WHERE NEW.MaPhong = p.MaPhong)
+		set NEW.ThanhTien = (select DonGia from LoaiPhong lp join Phong p on lp.MaLoai = p.type WHERE NEW.MaPhong = p.MaPhong)
 								* NEW.SoNgaySuDung * @PhuThu
 								*(select MAX(l.HeSo) from CT_PhieuThuePhong ct 
 														join KhachHang kh on ct.MaKH = kh.MaKH
 														join LoaiKH l on kh.LoaiKH = l.MaLoai
                                  WHERE ct.MaPhong = NEW.MaPhong and ct.NgayThue = NEW.NgayThue)	;		
 		UPDATE Phong
-        set TinhTrang = 'Trống'
+        set status = 'Trống'
         WHERE MaPhong = NEW.MaPhong;
 
      ELSE
@@ -238,7 +238,7 @@ CREATE TRIGGER `before_phieuthuephong_insert` BEFORE INSERT ON `phieuthuephong` 
         NEW.TrangThaiThanhToan = 'Chưa thanh toán',
         NEW.ThanhTien = NULL;
      UPDATE Phong
-        set TinhTrang = 'Đã thuê'
+        set status = 'Đã thuê'
         WHERE MaPhong = NEW.MaPhong;
 
     END IF; 
@@ -257,14 +257,14 @@ CREATE TRIGGER `before_phieuthuephong_update` BEFORE UPDATE ON `phieuthuephong` 
 		if (select count(*) from CT_PhieuThuePhong ct WHERE ct.MaPhong = NEW.MaPhong and ct.NgayThue = NEW.NgayThue) >= (select `value` from QuyDinh where `key`= 'SLToiDa') THEN
 				set @PhuThu = (select `value` from QuyDinh where `key`= 'PhuThu');
                 end if;
-		set NEW.ThanhTien = (select DonGia from LoaiPhong lp join Phong p on lp.MaLoai = p.LoaiPhong WHERE NEW.MaPhong = p.MaPhong)
+		set NEW.ThanhTien = (select DonGia from LoaiPhong lp join Phong p on lp.MaLoai = p.type WHERE NEW.MaPhong = p.MaPhong)
 								* NEW.SoNgaySuDung * @PhuThu
 								*(select MAX(l.HeSo) from CT_PhieuThuePhong ct 
 														join KhachHang kh on ct.MaKH = kh.MaKH
 														join LoaiKH l on kh.LoaiKH = l.MaLoai
                                  WHERE ct.MaPhong = NEW.MaPhong and ct.NgayThue = NEW.NgayThue)	;		
 		UPDATE Phong
-        set TinhTrang = 'Trống'
+        set status = 'Trống'
         WHERE MaPhong = NEW.MaPhong;
 
      ELSE
@@ -273,7 +273,7 @@ CREATE TRIGGER `before_phieuthuephong_update` BEFORE UPDATE ON `phieuthuephong` 
         NEW.TrangThaiThanhToan = 'Chưa thanh toán',
         NEW.ThanhTien = NULL;
      UPDATE Phong
-        set TinhTrang = 'Đã thuê'
+        set status = 'Đã thuê'
         WHERE MaPhong = NEW.MaPhong;
 
     END IF; 
