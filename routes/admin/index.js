@@ -5,10 +5,10 @@ var databaseConfig = require('../../models/db');
 var fs = require('fs');
 
 router.get('/', function (req, res, next) {
-  res.render('orther',
+  res.render('admin/home',
     {
       //title: 'Hotel',
-      //layout: 'orther',
+      layout: 'orther',
     }
   );
 });

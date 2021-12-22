@@ -5,51 +5,54 @@
                 <h6 class="m-0 font-weight-bold text-primary">Báo cáo mật độ sử dụng phòng</h6>
             </div>
             <br>
-            <form action="" method="post">
-                <div style="width: 300px">
-            <form method="post" id="month">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Tháng</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        placeholder="Tháng" name="Thang" value="{{Thang}}">
-                </div>
-                <button type="submit" class="btn btn-primary" value="create">Tìm</button>
-            </form>
-                </div>
-                <br>
+            <div style="width: 300px">
+                <form method="post" id="month">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tháng</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                               placeholder="Tháng" name="Thang" value="{{Thang}}">
+                    </div>
+                    <button type="submit" class="btn btn-primary" value="create">Tìm</button>
+                </form>
+            </div>
+            <br>
         </div>
         <div class="card-body">
             <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid"
-                aria-describedby="dataTable_info" style="width: 100%;">
+                   aria-describedby="dataTable_info" style="width: 100%;">
                 <thead>
-                    <tr role="row">
-                        <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                            aria-sort="ascending" aria-label="Name: activate to sort column descending"
-                            style="width: 100px;">
-                            STT</th>
-                        <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                            aria-sort="ascending" aria-label="Name: activate to sort column descending"
-                            style="width: 200px;">
-                            Phòng</th>
-                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                            aria-label="Position: activate to sort column ascending" style="width: 200px;">
-                            Số ngày thuê</th>
+                <tr role="row">
+                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                        style="width: 100px;">
+                        STT
+                    </th>
+                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-sort="ascending" aria-label="Name: activate to sort column descending"
+                        style="width: 200px;">
+                        Phòng
+                    </th>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Position: activate to sort column ascending" style="width: 200px;">
+                        Số ngày thuê
+                    </th>
 
-                        <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                            aria-label="Age: activate to sort column ascending" style="width: 100px;">
-                            Tỷ lệ</th>
-                    </tr>
+                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Age: activate to sort column ascending" style="width: 100px;">
+                        Tỷ lệ
+                    </th>
+                </tr>
                 </thead>
 
                 <tbody>
-                    {{#each data}}
+                {{#each data}}
                     <tr class="odd">
                         <td></td> <!--stt-->
                         <td>{{name}}</td>
                         <td>{{SoNgaySuDung}}</td>
                         <td></td> <!--Ty Le-->
                     </tr>
-                    {{/each}}
+                {{/each}}
                 </tbody>
             </table>
         </div>

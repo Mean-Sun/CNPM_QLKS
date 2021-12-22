@@ -21,6 +21,9 @@ const staffRouter = require('./routes/admin/staff');
 const customerRouter = require('./routes/admin/customer');
 const revenueRouter = require('./routes/admin/revenueReport');
 const densityRouter = require('./routes/admin/densityReport');
+const loginRouter = require('./routes/admin/login');
+const registerRouter = require('./routes/admin/register');
+const passport = require("./auth/passport");
 const app = express();
 
 // view engine setup
@@ -37,10 +40,16 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+
+//app.use(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.static(__dirname + '/public'));
 // res.locals is an object passed to hbs engine
 app.use(function(req, res, next) {
     res.locals.session = req.session;
+    res.locals.user = req.user;
     next();
 });
 
@@ -55,6 +64,18 @@ app.use(
 
 app.use(express.static(path.join(__dirname, '/publics/')));
 
+
+app.use('/login',loginRouter);
+app.use('*', function (req, res, next) {
+    if (!global.user) {
+        res.redirect('/login');
+    }
+    else {
+        next();
+    }
+});
+
+
 app.use(flash());
 app.use('/', index);
 app.use('/admin',adminProductRouter);
@@ -65,10 +86,11 @@ app.use('/staff',staffRouter);
 app.use('/customer',customerRouter);
 app.use('/revenueReport',revenueRouter);
 app.use('/densityReport',densityRouter);
+app.use('/register',registerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
