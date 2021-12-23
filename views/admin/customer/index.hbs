@@ -15,36 +15,39 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0"
-                               role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                            role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                             <thead>
-                            <tr role="row">
-                                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                    colspan="1" aria-sort="ascending"
-                                    aria-label="Name: activate to sort column descending" style="width: 70px;">
-                                    #</th>
-                                <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
-                                    colspan="1" aria-sort="ascending"
-                                    aria-label="Name: activate to sort column descending" style="width: 250px;">
-                                    Tên KH</th>
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Position: activate to sort column ascending"
-                                    style="width: 150px;">CMND</th>
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Office: activate to sort column ascending" style="width: 200px">
-                                    SĐT</th>
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Age: activate to sort column ascending" style="width: 250px;">
-                                    Địa Chỉ</th>
-                                <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                    aria-label="Age: activate to sort column ascending" style="width: 150px;">
-                                    Loại KH</th>
-                            </tr>
+                                <tr role="row">
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                        colspan="1" aria-sort="ascending"
+                                        aria-label="Name: activate to sort column descending" style="width: 70px;">
+                                        ID</th>
+                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1"
+                                        colspan="1" aria-sort="ascending"
+                                        aria-label="Name: activate to sort column descending" style="width: 250px;">
+                                        Tên KH</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Position: activate to sort column ascending" style="width: 150px;">
+                                        CMND</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Office: activate to sort column ascending" style="width: 200px">
+                                        SĐT</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Age: activate to sort column ascending" style="width: 250px;">
+                                        Địa Chỉ</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Age: activate to sort column ascending" style="width: 150px;">
+                                        Loại KH</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Age: activate to sort column ascending" style="width: 150px;">
+                                        Edit</th>
+                                </tr>
                             </thead>
 
                             <tbody>
-                            {{#each data}}
+                                {{#each data}}
                                 <tr class="odd">
-                                    <td>{{MaKH}}</td>
+                                    <td class="sorting_1">{{MaKH}}</td>
                                     <td>{{TenKH}}</td>
                                     <td>{{CMND}}</td>
                                     <td>{{SDT}}</td>
@@ -52,24 +55,21 @@
                                     <td>{{TenLoai}}</td>
                                     <td>
                                         <a class="btn btn-success edit" href="/customer/edit/{{MaKH}}">Edit</a>
-                                        <a class="btn btn-danger delete" href="/customer/delete/{{MaKH}}">Delete</a>
+                                        <a class="btn btn-danger delete" onclick="return confirm('Are You sure?')"
+                                            href="/customer/delete/{{MaKH}}">Delete</a>
                                     </td>
                                 </tr>
-                            {{/each}}
+                                {{/each}}
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <nav style="margin-left: 83%;" aria-label="Page navigation example">
-                    <ul  class="pagination">
-                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
-                </nav>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(() => {
+        $('#dataTable').DataTable();
+    });
+</script>

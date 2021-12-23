@@ -13,10 +13,8 @@ router.get('/login/', function (req, res, next) {
 router.post('/login', async function(req, res, next) {
     let u = req.body.email;
     let p = req.body.MatKhau;
-    console.log(p)
     let sql = 'SELECT * FROM nhanvien WHERE email = ?';
     databaseConfig.query(sql, [u] , (err, rows) => { 
-        console.log(rows)  
         if (rows.length<=0) { res.redirect("/auth/login"); return;}
         let user = rows[0];        
         let pass_fromdb = user.MatKhau;        
@@ -30,8 +28,7 @@ router.post('/login', async function(req, res, next) {
             res.redirect("/staff");
         }   
         else {
-            console.log("Not OK");
-            // res.redirect("/auth/login");
+            res.redirect("/auth/login");
 
         }
     });   

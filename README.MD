@@ -21,7 +21,4 @@ For Nodemon usage
 ``` shell
 nodemon ./bin/www
 ```
-Install encryption settings
-``` shell
-npm i bcrypt
-```
+
