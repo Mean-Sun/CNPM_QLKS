@@ -14,10 +14,12 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
     var thang = req.body.Thang
     const sql = `
-    SELECT p.MaPhong,p.name, sum(SoNgaySuDung) as SoNgaySuDung
-        FROM Phong p Join PhieuThuePhong pt on p.MaPhong = pt.MaPhong
+    SET @curRow = 0;
+    SET @total = (SELECT sum(pt.SoNgaySuDung) FROM PhieuThuePhong pt WHERE month(pt.NgayTra) = ${thang});
+    SELECT @curRow := @curRow + 1 AS STT,p.name, sum(SoNgaySuDung) as SoNgaySuDung, (sum(SoNgaySuDung) / @total)*100 as TyLe
+    	FROM Phong p Join PhieuThuePhong pt on p.MaPhong = pt.MaPhong
         WHERE month(pt.NgayTra) = ${thang}
-        GROUP BY p.MaPhong,p.name`
+    	GROUP BY p.MaPhong,p.name`
 
     databaseConfig.query(sql, function (err, rows) {
         if (err) {
