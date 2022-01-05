@@ -64,10 +64,10 @@ app.use(
 
 app.use(express.static(path.join(__dirname, '/publics/')));
 
-
 app.use('/login',loginRouter);
+
 app.use('*', function (req, res, next) {
-    if (!global.user) {
+    if (!req.session.user) {
         res.redirect('/login');
     }
     else {

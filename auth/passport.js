@@ -4,36 +4,40 @@ const bcrypt = require("bcrypt");
 const databaseConfig = require('../models/db');
 
 
-passport.use(new LocalStrategy(
-    async function(email, password, done) {
-        /*try {
-            //const user = await models.users.findOne({where: {username}, raw: true});
-            const user = await authService.getUserbyUsername(username);
-            if (!user) {
-                return done(null, false, { message: 'Incorrect username.' });
+passport.use(new LocalStrategy(function verify(email, password, done) {
+        let sql = `SELECT * FROM nhanvien WHERE email = "` + email + `"`;
+        databaseConfig.query(sql, function (err, rows) {
+            if (err) {
+                return done(null, false);
+            } else {
+                if (rows.length < 1) {
+                    return done(null, false, {message: 'Incorrect email.'});
+                }
+                const passwordInput = rows[0].MatKhau;
+
+                bcrypt.compare(password, passwordInput, function (err, result) {
+                    if (result) {
+                        const user = {
+                            MaNV: rows[0].MaNV,
+                            TenNV: rows[0].TenNV,
+                            email: rows[0].email
+                        }
+                        return done(null, user);
+                    } else {
+                        return done(null, false, {message: 'Incorrect password.'});
+                    }
+                });
             }
-            const match = await validPassword(user, password);
-            if (!match) {
-                return done(null, false, { message: 'Incorrect password.' });
-            }
-            return done(null, user);
-        }
-        catch (err){
-            return done(err);
-        }*/
+        });
     }
 ));
 
-async function validPassword(user, password){
-    return bcrypt.compare(password, user.password);
-}
 
-
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
     done(null, {MaNV: user.MaNV, TenNV: user.TenNV, email: user.email});
 });
 
-passport.deserializeUser(function(user, done) {
+passport.deserializeUser(function (user, done) {
     return done(null, user);
 });
 

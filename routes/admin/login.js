@@ -3,6 +3,7 @@ const router = express.Router();
 const databaseConfig = require('../../models/db');
 const fs = require('fs');
 const bcrypt = require("bcrypt");
+const passport = require("../../auth/passport");
 const app = express();
 
 router.get('/', function (req, res, next) {
@@ -10,6 +11,7 @@ router.get('/', function (req, res, next) {
         layout: 'orther'
     });
 })
+
 
 router.post('/', function (req, res, next) {
     let message = '';
@@ -57,8 +59,9 @@ router.post('/', function (req, res, next) {
                             email: rows[0].email
                         }
 
-                        global.user = User;
+                        //global.user = User;
                         //message = 'Đăng nhập thành công';
+                        req.session.user = User;
                         return res.redirect('/');
                         /*return res.render('admin/auth/login', {
                             message,
@@ -76,6 +79,12 @@ router.post('/', function (req, res, next) {
             ;
         }
     });
-
 })
+
+
+/*router.post('/', passport.authenticate('local', { failureRedirect: '/login', failureMessage: true }),
+    function(req, res) {
+        res.redirect('/' + req.user.TenNV);
+    });*/
+
 module.exports = router
