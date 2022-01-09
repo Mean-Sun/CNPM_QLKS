@@ -57,6 +57,8 @@ app.use(
 
 app.use(express.static(path.join(__dirname, '/publics/')));
 
+
+
 app.use(flash());
 app.use('/', index);
 app.use('/admin',adminProductRouter);
