@@ -6,7 +6,7 @@ const { resolve } = require('path');
 
 // Danh sách phiếu thuê phòng
 router.get('/', function(req, res, next) {
-    const sql = 'SELECT * FROM phieuthuephong '
+    const sql = 'SELECT * FROM phieuthuephong'
     databaseConfig.query(sql, function(err, rows) {
         if (err) {
             req.flash('error', err);
@@ -26,9 +26,23 @@ router.get('/', function(req, res, next) {
 
 // Get view 
 router.get('/create', function(req, res, next) {
-    res.render('admin/rentroom/create', {
-        layout: 'orther'
-    });
+
+    const sql = 'Select MaPhong FROM phong WHERE status="Trống" '
+    databaseConfig.query(sql, function(err, rows) {
+        if (err) {
+            req.flash('error', err);
+            res.render('admin/rentroom/index', {
+                data: '',
+                layout: 'orther'
+            });
+        } else {
+          res.render('admin/rentroom/create',
+        {
+            layout: 'orther',
+            rows:rows
+            });
+        }
+    })
 })
 
 // add  rentroom
@@ -74,6 +88,7 @@ router.post('/create', function(req, res, next) {
                 res.redirect('/rentroom/');
             }
         })
+        
     }
 })
 

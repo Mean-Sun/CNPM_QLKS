@@ -18,6 +18,7 @@
                         <input type="text" class="form-control" id="exampleInputEmail1" 
                          name="MaPhong" value="{{MaPhong}}">
                     </div>
+                   
                     <div class="form-group">
                         <label for="exampleInputPassword1">Ngày thuê phòng</label>
                         <input type="date" class="form-control" id="exampleInputPassword1" 
@@ -43,10 +44,15 @@
                           <input class="form-control" id="exampleInputPassword1" 
                             name="ThanhTien" value="{{ThanhTien}}">
                     </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlFile1">Trạng thái thanh toán</label>
-                          <input class="form-control" id="exampleInputPassword1" 
-                            name="TrangThaiThanhToan" value="{{TrangThaiThanhToan}}">
+                   <div class="form-group">
+                        <label for="exampleInputPassword1">Trạng thái</label>
+                        {{!-- <input type="text" class="form-control" id="exampleInputPassword1"
+                            name="TrangThaiThanhToan" value="{{TrangThaiThanhToan}}"> --}}
+                        <select class="form-control" id="exampleFormControlSelect1" name="TrangThaiThanhToan">
+                            <option value="Chưa thanh toán">Chưa thanh toán</option>
+                             <option value="Đã thanh toán">Đã thanh toán</option>
+                        </select>
+
                     </div>
                     <button type="submit" class="btn btn-primary" value="create">Submit</button>
                 </form>

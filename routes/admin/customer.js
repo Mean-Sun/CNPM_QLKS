@@ -33,26 +33,27 @@ router.get('/create', function (req, res, next) {
 
 // add customer
 router.post('/create', function (req, res, next) {
-    const MaKH = req.body.MaKH;
-    const TenKH = req.body.TenKH;
-    const CMND = req.body.CMND;
-    const DiaChi = req.body.DiaChi;
-    const SDT = req.body.SDT;
-    const LoaiKH = req.body.LoaiKH;
+    let MaKH = req.body.MaKH;
+    let TenKH = req.body.TenKH;
+    let CMND = req.body.CMND;
+    let SDT = req.body.SDT;
+    let DiaChi = req.body.DiaChi;
+    let LoaiKH = req.body.LoaiKH;
 
     let errors = false;
     if (!errors) {
-        const form_data = {
+        var form_data = {
             MaKH: MaKH,
-            TenKH: TenKH,
-            DiaChi: DiaChi,
+            TenKH: TenKH,        
             SDT: SDT,
+            DiaChi: DiaChi,
             CMND: CMND,
             LoaiKH: LoaiKH,
         }
         databaseConfig.query('INSERT INTO khachhang SET ?', form_data, function (err, result) {
             if (err) {              
                 req.flash('error', err)
+                console.log(err)
                 res.render('admin/customer/create', {
                     MaKH: form_data.MaKH,
                     TenKH: form_data.TenKH,

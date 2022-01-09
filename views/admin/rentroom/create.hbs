@@ -12,45 +12,60 @@
     <div class="card-body">
         <div style="overflow: hidden;" class="table-responsive">
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                <form action="/rentroom/create" method="post" id="createForm" >
-                    <div class="form-group">
+                <form action="/rentroom/create" method="post" id="createForm">
+                    {{!-- <div class="form-group">
                         <label for="exampleInputEmail1">Mã phòng</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                             placeholder="Nhập mã phòng" name="MaPhong" value="{{MaPhong}}">
+                    </div> --}}
+                     <div class="form-group">
+                        <label for="exampleInputPassword1">Mã phòng</label>
+                        {{!-- <input type="text" class="form-control" id="exampleInputPassword1"
+                            name="TrangThaiThanhToan" value="{{TrangThaiThanhToan}}"> --}}
+                        <select class="form-control" id="exampleFormControlSelect1" name="MaPhong">
+                             {{#each rows}}
+                            <option value="{{MaPhong}}">{{MaPhong}}</option>
+                             {{/each}}
+                        </select>
                     </div>
+                
                     <div class="form-group">
                         <label for="exampleInputPassword1">Ngày thuê</label>
-                         <input type="date" class="form-control" id="exampleInputPassword1" 
-                            name="NgayThue" value="{{NgayThue}}">
-                        {{!-- <input type="quanlity" class="form-control" id="exampleInputPassword1" placeholder="Ngày thuê"
-                            name="TenLoai" value="{{TenLoai}}"> --}}
+                        <input type="date" class="form-control" id="exampleInputPassword1" name="NgayThue"
+                            value="{{NgayThue}}">
+                        {{!-- <input type="quanlity" class="form-control" id="exampleInputPassword1"
+                            placeholder="Ngày thuê" name="TenLoai" value="{{TenLoai}}"> --}}
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Ngày trả</label>
-                         <input type="date" class="form-control" id="exampleInputPassword1" 
-                            name="NgayTra" value="{{NgayTra}}">
-                        {{!-- <input type="quanlity" class="form-control" id="exampleInputPassword1" placeholder="Ngày thuê"
-                            name="TenLoai" value="{{TenLoai}}"> --}}
+                        <input type="date" class="form-control" id="exampleInputPassword1" name="NgayTra"
+                            value="{{NgayTra}}">
+                        {{!-- <input type="quanlity" class="form-control" id="exampleInputPassword1"
+                            placeholder="Ngày thuê" name="TenLoai" value="{{TenLoai}}"> --}}
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Mã hợp đồng</label>
-                        <input type="number" class="form-control" id="exampleInputPassword1" 
-                            name="MaHD" value="{{MaHD}}">
+                        <input type="number" class="form-control" id="exampleInputPassword1" name="MaHD"
+                            value="{{MaHD}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Số ngày sử dụng</label>
-                        <input type="number" class="form-control" id="exampleInputPassword1" 
-                            name="SoNgaySuDung" value="{{SoNgaySuDung}}">
+                        <input type="number" class="form-control" id="exampleInputPassword1" name="SoNgaySuDung"
+                            value="{{SoNgaySuDung}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Thành tiền</label>
-                        <input type="number" class="form-control" id="exampleInputPassword1" 
-                            name="ThanhTien" value="{{ThanhTien}}">
+                        <input type="number" class="form-control" id="exampleInputPassword1" name="ThanhTien"
+                            value="{{ThanhTien}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Trạng thái</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" 
-                            name="TrangThaiThanhToan" value="{{TrangThaiThanhToan}}">
+                        {{!-- <input type="text" class="form-control" id="exampleInputPassword1"
+                            name="TrangThaiThanhToan" value="{{TrangThaiThanhToan}}"> --}}
+                        <select class="form-control" id="exampleFormControlSelect1" name="TrangThaiThanhToan">
+                            <option value="Chưa thanh toán">Chưa thanh toán</option>
+                            <option value="Đã thanh toán">Đã thanh toán</option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary" value="create">Submit</button>
                 </form>
