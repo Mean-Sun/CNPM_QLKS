@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
 })
 
 router.post('/', function (req, res, next) {
-    var thang = req.body.Thang
+    var thang = parseInt(req.body.Thang)
     const sql = `
     SET @curRow = 0;
     SET @total = (SELECT sum(pt.SoNgaySuDung) FROM PhieuThuePhong pt WHERE month(pt.NgayTra) = ${thang});
