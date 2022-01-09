@@ -21,6 +21,8 @@ const staffRouter = require('./routes/admin/staff');
 const ruleRouter = require('./routes/admin/rule');
 const customerRouter = require('./routes/admin/customer');
 const revenueRouter = require('./routes/admin/revenueReport');
+const loginRouter = require('./routes/admin/login');
+const registerRouter = require('./routes/admin/register');
 const densityRouter = require('./routes/admin/densityReport');
 const authRouter = require('./routes/admin/authen');
 const app = express();
@@ -43,6 +45,7 @@ app.use(express.static(__dirname + '/public'));
 // res.locals is an object passed to hbs engine
 app.use(function(req, res, next) {
     res.locals.session = req.session;
+    res.locals.user = req.user;
     next();
 });
 
@@ -57,6 +60,16 @@ app.use(
 
 app.use(express.static(path.join(__dirname, '/publics/')));
 
+app.use('/login', loginRouter);
+
+app.use('*', function (req, res, next) {
+    if (!req.session.user) {
+        res.redirect('/login');
+    }
+    else {
+        next();
+    }
+});
 
 
 app.use(flash());
@@ -70,7 +83,7 @@ app.use('/rule-info',ruleRouter);
 app.use('/customer',customerRouter);
 app.use('/revenueReport',revenueRouter);
 app.use('/densityReport',densityRouter);
-
+app.use('/register',registerRouter);
 app.use('/auth', authRouter);
 
 // app.use(function (req, res, next) {
