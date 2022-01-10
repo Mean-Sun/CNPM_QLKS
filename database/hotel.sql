@@ -86,6 +86,12 @@ CREATE TABLE `hoadon` (
   `GiaTri` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE `quydinh` (
+  `id` int(11) NOT NULL,
+  `Key` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Value` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 
 
@@ -174,12 +180,6 @@ $$
 DELIMITER ;
 
 
-
-CREATE TABLE `quydinh` (
-  `id` int(11) NOT NULL,
-  `Key` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Value` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 INSERT INTO `quydinh` (`id`, `Key`, `Value`) VALUES
