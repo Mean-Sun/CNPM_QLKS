@@ -141,7 +141,7 @@ DELIMITER $$
 CREATE TRIGGER `before_phieuthuephong_update` BEFORE UPDATE ON `phieuthuephong` FOR EACH ROW BEGIN
     IF NEW.MaHD is not null then
         set NEW.NgayTra = (select NgayLap from HoaDon where MaHD = NEW.MaHD),
-        NEW.SoNgaySuDung = datediff((select NgayLap from HoaDon where MaHD = NEW.MaHD),NEW.NgayThue),
+        NEW.SoNgaySuDung = datediff((select NgayLap from HoaDon where MaHD = NEW.MaHD),NEW.NgayThue)+1,
         NEW.TrangThaiThanhToan = 'Đã thanh toán';
         
 		set @PhuThu = 1;
@@ -229,7 +229,13 @@ ALTER TABLE `quydinh`
 
 
 ALTER TABLE `phong`
-  MODIFY `MaPhong` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `MaPhong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+
+ALTER TABLE `HoaDon`
+  MODIFY `MaHD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+
+ALTER TABLE `KhachHang`
+  MODIFY `MaKH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
 
 
 ALTER TABLE `ct_phieuthuephong`
@@ -259,7 +265,7 @@ INSERT INTO `khachhang` (`MaKH`, `TenKH`, `CMND`, `SDT`, `DiaChi`, `LoaiKH`) VAL
 (3, 'Lê Khắc Đan', '1122334455', '0123664489', 'Q5, TP.Đà Lạt', 1),
 (4, 'Raiden Shogun', '1122334455', '0123458889', 'Narukami, Inazuma', 2),
 (5, 'Yae Miko', '1122247455', '0128856789', 'Narukami, Inazuma', 2),
-(6, 'Violet Evergarde', '1122678455', '0123756789', 'Tokyo, Japa', 2),
+(6, 'Violet Evergarde', '1122678455', '0123756789', 'Tokyo, Japan', 2),
 (7, 'Sung Jinwoo', '1122345455', '0123457689', 'Seoul, Korea', 2),
 (8, 'Arther', '1122144455', '0123676789', 'Berlin, Germany', 2),
 (9, 'Trần Anh Tuấn', '1124474455', '0123816789', 'Tân Bình, TP.HCM', 1),

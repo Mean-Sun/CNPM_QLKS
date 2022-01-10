@@ -12,64 +12,193 @@
     <div class="card-body">
         <div style="overflow: hidden;" class="table-responsive">
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                <form action="/rentroom/create" method="post" id="createForm">
+                <form action="/rentroom" method="get" id="createForm" onsubmit="return add_rentroom();">
                     {{!-- <div class="form-group">
                         <label for="exampleInputEmail1">Mã phòng</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                             placeholder="Nhập mã phòng" name="MaPhong" value="{{MaPhong}}">
                     </div> --}}
-                     <div class="form-group">
+                     <div class="form-group" style="width:50%;">
                         <label for="exampleInputPassword1">Mã phòng</label>
                         {{!-- <input type="text" class="form-control" id="exampleInputPassword1"
                             name="TrangThaiThanhToan" value="{{TrangThaiThanhToan}}"> --}}
-                        <select class="form-control" id="exampleFormControlSelect1" name="MaPhong">
+                        <select class="form-control" id="room-id-for-rentroom" name="MaPhong" required>
                              {{#each rows}}
-                            <option value="{{MaPhong}}">{{MaPhong}}</option>
+                            <option value="{{MaPhong}}">{{name}}</option>
                              {{/each}}
                         </select>
                     </div>
                 
-                    <div class="form-group">
+                    <div class="form-group" style="width:50%;">
                         <label for="exampleInputPassword1">Ngày thuê</label>
-                        <input type="date" class="form-control" id="exampleInputPassword1" name="NgayThue"
-                            value="{{NgayThue}}">
+                        <input type="date" class="form-control" id="NgayThue" name="NgayThue"
+                            disabled>
                         {{!-- <input type="quanlity" class="form-control" id="exampleInputPassword1"
                             placeholder="Ngày thuê" name="TenLoai" value="{{TenLoai}}"> --}}
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Ngày trả</label>
-                        <input type="date" class="form-control" id="exampleInputPassword1" name="NgayTra"
-                            value="{{NgayTra}}">
-                        {{!-- <input type="quanlity" class="form-control" id="exampleInputPassword1"
-                            placeholder="Ngày thuê" name="TenLoai" value="{{TenLoai}}"> --}}
+                    <script>
+                        document.getElementById('NgayThue').value = new Date().toISOString().slice(0, 10);
+                    </script>
+
+                    <div class="form-group" > 
+                        <table class="table" id="select-cus-show">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width: 20px;">#</th>
+                                    <th scope="col" style="width: 250px;">Tên khách hàng</th>
+                        
+                                    <th scope="col" style="width: 150px;">Loại khách</th>
+                                    <th scope="col" style="width: 100px;">CMND</th>
+                                    <th scope="col" style="width: 300px;">Địa chỉ</th>
+                                    <th scope="col" style="width: 100px;">Action</th>
+                        
+                                </tr>
+                            </thead>
+                            <tbody id="select-customer-for-rentroom">
+                                <tr id="select_cus_row_0">
+                                    <td>1</td>
+                                    <td>
+                                        <select class="cusotmer_id" onchange="change_customer_check('select_cus_row_0');" required>
+                                            <option selected>Chọn khách hàng</option>
+                                        </select>
+                                    </td>
+                                    <td class="type-of-cus"></td>
+                                    <td class="SSN"></td>
+                                    <td class="address"></td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div id="select-customer-help" style=" color:brown"></div>
+                        <br><br>
+                        <button type="button" class="btn btn-info" onclick="add_cus_to_form();">Thêm khách hàng</button>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Mã hợp đồng</label>
-                        <input type="number" class="form-control" id="exampleInputPassword1" name="MaHD"
-                            value="{{MaHD}}">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Số ngày sử dụng</label>
-                        <input type="number" class="form-control" id="exampleInputPassword1" name="SoNgaySuDung"
-                            value="{{SoNgaySuDung}}">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Thành tiền</label>
-                        <input type="number" class="form-control" id="exampleInputPassword1" name="ThanhTien"
-                            value="{{ThanhTien}}">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Trạng thái</label>
-                        {{!-- <input type="text" class="form-control" id="exampleInputPassword1"
-                            name="TrangThaiThanhToan" value="{{TrangThaiThanhToan}}"> --}}
-                        <select class="form-control" id="exampleFormControlSelect1" name="TrangThaiThanhToan">
-                            <option value="Chưa thanh toán">Chưa thanh toán</option>
-                            <option value="Đã thanh toán">Đã thanh toán</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary" value="create">Submit</button>
+                    <button type="submit" class="btn btn-primary" id="submit-rentroom-btn">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<script>
+    var glb_cus_data = [];
+    var glb_max_cus = 0;
+    function get_customer_data(){
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            glb_cus_data = JSON.parse(this.responseText);
+            render_cus('select_cus_row_0');
+            get_max_cus();
+        }
+        xhttp.open("GET", "customer-for-rentroom");
+        xhttp.send();
+    }
+
+    function get_max_cus(){
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            glb_max_cus = JSON.parse(this.responseText);
+            glb_max_cus = glb_max_cus[0].Value;
+            
+        }
+        xhttp.open("GET", "max-for-rentroom");
+        xhttp.send();
+    }
+
+    function render_cus(id){
+        var slc = document.querySelector(`#${id} .cusotmer_id`);
+        var tr = "<option selected>Chọn khách hàng</option>"
+        if (glb_cus_data.length>0){
+            glb_cus_data.forEach(  Element=>{
+                tr+=`<option value="${Element.MaKH}">${Element.TenKH}</option>`
+            })
+        }
+        slc.innerHTML = tr;
+
+    }
+    get_customer_data();
+
+
+    function add_cus_to_form(){
+        var tbl = document.getElementById('select-customer-for-rentroom');
+        var rows = document.querySelectorAll(`#select-customer-for-rentroom tr`);
+        if (rows.length>=glb_max_cus){
+            document.getElementById('select-customer-help').innerHTML = 'Đã đạt số lượng tối đa!';
+            return;
+        }else{
+            var child = document.createElement('tr');
+            child.setAttribute('id',`select_cus_row_${rows.length}`)
+            child.innerHTML=`
+                                    <td>${rows.length+1}</td>
+                                    <td>
+                                        <select class="cusotmer_id" onchange="change_customer_check('select_cus_row_${rows.length}'); required">
+                                            <option selected>Chọn khách hàng</option>
+                                        </select>
+                                    </td>
+                                    <td class="type-of-cus"></td>
+                                    <td class="SSN"></td>
+                                    <td class="address"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger" onclick="delete_row('select_cus_row_${rows.length}');">Xóa</button>
+                                    </td>
+                                `
+            tbl.appendChild(child);
+            render_cus(`select_cus_row_${rows.length}`);
+        }
+
+    }
+
+
+    function change_customer_check(row_id){
+        var rows = document.querySelectorAll(`#select-customer-for-rentroom .cusotmer_id`);
+        var tbl_row = document.getElementById(row_id);
+        var cus_id = tbl_row.querySelector('.cusotmer_id').value;
+        var flag = 0;
+        for(i=0;i<rows.length;i++){
+            if (rows[i].value == cus_id){
+                flag = flag + 1;
+            }
+        }
+        if (flag >= 2){
+            document.getElementById('select-customer-help').innerHTML = 'Khách hàng bị trùng!';
+            document.getElementById('submit-rentroom-btn').disabled = true;
+        }else{
+            document.getElementById('select-customer-help').innerHTML = '';
+            document.getElementById('submit-rentroom-btn').disabled = false;
+        }
+        glb_cus_data.forEach(element=>{
+            if(element.MaKH == cus_id){
+                tbl_row.querySelector('.type-of-cus').innerHTML = element.TenLoai;
+                tbl_row.querySelector('.SSN').innerHTML = element.CMND;
+                tbl_row.querySelector('.address').innerHTML = element.DiaChi;
+            }
+        })
+    }
+
+    function delete_row(id){
+        document.getElementById(id).remove();
+        document.getElementById('select-customer-help').innerHTML = '';
+    }
+
+    function add_rentroom(){
+        var room_id = document.getElementById('room-id-for-rentroom').value;
+        var data = [];
+        var rows = document.querySelectorAll(`#select-customer-for-rentroom .cusotmer_id`);
+        rows.forEach(element=>{
+            data.push(element.value)
+        })
+        data = JSON.stringify(data);
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            //console.log(this.responseText);
+            window.location.replace("/rentroom");
+        }
+        xhttp.open("POST", "create");
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(`MaPhong=`+room_id+`&data=`+data);
+        return false;
+    }
+
+
+</script>
