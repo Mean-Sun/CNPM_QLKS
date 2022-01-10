@@ -176,14 +176,15 @@ DELIMITER ;
 
 
 CREATE TABLE `quydinh` (
+  `id` int(11) NOT NULL,
   `Key` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `Value` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-INSERT INTO `quydinh` (`Key`, `Value`) VALUES
-('PhuThu', 1.25),
-('SLToiDa', 3);
+INSERT INTO `quydinh` (`id`, `Key`, `Value`) VALUES
+(1, 'PhuThu', 1.25),
+(2, 'SLToiDa', 3);
 
 
 ALTER TABLE `ct_phieuthuephong`
