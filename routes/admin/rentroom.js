@@ -130,6 +130,7 @@ router.post('/edit/:MaPhong', function(req, res, next) {
     let SoNgaySuDung = req.body.SoNgaySuDung;
     let ThanhTien = req.body.ThanhTien;
     let TrangThaiThanhToan = req.body.TrangThaiThanhToan;
+    let errors = false;
     if (!errors) {
         var form_data = {
             MaPhong: MaPhong,
@@ -142,7 +143,7 @@ router.post('/edit/:MaPhong', function(req, res, next) {
         }
         databaseConfig.query('UPDATE phieuthuephong SET ? WHERE MaPhong = ' + MaPhong, form_data, function(err, result) {
             if (err) {
-                //console.log(form_data);
+                console.log(form_data);
                 req.flash('error', err)
                     // render to add.ejs
                 res.render('admin/rentroom/edit', {
