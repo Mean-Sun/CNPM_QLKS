@@ -24,10 +24,40 @@ router.get('/', function(req, res, next) {
     })
 })
 
+//lấy danh sách khách hàng để thuê phòng
+router.get('/customer-for-rentroom', function(req, res) {
+    const sql = 'SELECT kh.*,l.TenLoai FROM khachhang kh join loaikh l on kh.LoaiKH = l.MaLoai order by kh.TenKh ASC'
+    databaseConfig.query(sql, function(err, rows) {
+        if (err) {
+            res.send(err);
+            //console.log(err);
+        } else {
+            res.send(rows);
+            //console.log(rows);
+        }
+
+    })
+})
+
+//lấy số lượng khách tối đa
+router.get('/max-for-rentroom', function(req, res) {
+    const sql = "SELECT * from QuyDinh where `Key` = 'SLToiDa'"
+    databaseConfig.query(sql, function(err, rows) {
+        if (err) {
+            res.send(err);
+            //console.log(err);
+        } else {
+            res.send(rows);
+            //console.log(rows);
+        }
+
+    })
+})
+
 // Get view 
 router.get('/create', function(req, res, next) {
 
-    const sql = 'Select MaPhong FROM phong WHERE status="Trống" '
+    const sql = 'Select MaPhong,name FROM phong WHERE status="Trống" and not exists (select * from PhieuThuePhong where NgayThue = date(now()) and MaPhong = phong.MaPhong)'
     databaseConfig.query(sql, function(err, rows) {
         if (err) {
             req.flash('error', err);
@@ -36,10 +66,9 @@ router.get('/create', function(req, res, next) {
                 layout: 'orther'
             });
         } else {
-          res.render('admin/rentroom/create',
-        {
-            layout: 'orther',
-            rows:rows
+            res.render('admin/rentroom/create', {
+                layout: 'orther',
+                rows: rows
             });
         }
     })
@@ -47,49 +76,26 @@ router.get('/create', function(req, res, next) {
 
 // add  rentroom
 router.post('/create', function(req, res, next) {
-    let MaPhong = req.body.MaPhong;
-    let NgayThue = req.body.NgayThue;
-    let NgayTra = req.body.NgayTra;
-    let MaHD = req.body.MaHD;
-    let SoNgaySuDung = req.body.SoNgaySuDung;
-    let ThanhTien = req.body.ThanhTien;
-    let TrangThaiThanhToan = req.body.TrangThaiThanhToan;
-
-    let errors = false;
-    if (!errors) {
-        var form_data = {
-            MaPhong: MaPhong,
-            NgayThue: NgayThue,
-            NgayTra: NgayTra,
-            MaHD: MaHD,
-            SoNgaySuDung: SoNgaySuDung,
-            ThanhTien: ThanhTien,
-            TrangThaiThanhToan: TrangThaiThanhToan,
-
+    var data = JSON.parse(req.body.data);
+    //console.log(data);
+    var sql = `START TRANSACTION;
+    INSERT INTO phieuthuephong (MaPhong, NgayThue, NgayTra, MaHD, SoNgaySuDung, ThanhTien, TrangThaiThanhToan) VALUES (${req.body.MaPhong}, now(), NULL, NULL, NULL, NULL, 'Chưa thanh toán');`
+    data.forEach(element => {
+        sql += `
+        INSERT INTO ct_phieuthuephong (MaPhong, NgayThue,MaKH) VALUES
+        (${req.body.MaPhong}, now(), ${element});`
+    });
+    sql += `COMMIT;`
+        //console.log(sql);
+    databaseConfig.query(sql, function(err, rows) {
+        if (err) {
+            req.flash('error', err);
+            res.send(err)
+                //console.log(err);
+        } else {
+            res.send('Thanhcong!')
         }
-        databaseConfig.query('INSERT INTO phieuthuephong SET ?', form_data, function(err, result) {
-            if (err) {
-                // console.log(form_data.image);
-                req.flash('error', err)
-                console.log(form_data)
-                    // render to add.ejs
-                res.render('admin/rentroom/create', {
-                    MaPhong: form_data.MaPhong,
-                    NgayThue: form_data.NgayThue,
-                    NgayTra: form_data.NgayTra,
-                    MaHD: form_data.MaHD,
-                    SoNgaySuDung: form_data.SoNgaySuDung,
-                    ThanhTien: form_data.ThanhTien,
-                    TrangThaiThanhToan: form_data.TrangThaiThanhToan,
-                    layout: 'orther',
-                })
-            } else {
-                req.flash('success', 'Product successfully added');
-                res.redirect('/rentroom/');
-            }
-        })
-        
-    }
+    })
 })
 
 // get view edit
@@ -136,7 +142,7 @@ router.post('/edit/:MaPhong', function(req, res, next) {
         }
         databaseConfig.query('UPDATE phieuthuephong SET ? WHERE MaPhong = ' + MaPhong, form_data, function(err, result) {
             if (err) {
-                console.log(form_data);
+                //console.log(form_data);
                 req.flash('error', err)
                     // render to add.ejs
                 res.render('admin/rentroom/edit', {
@@ -168,7 +174,7 @@ router.get('/checkout', function(req, res, next) {
 })
 
 router.get('/getcustomer', function(req, res, next) {
-    console.log(req.query.name);
+    //console.log(req.query.name);
     const sql = `SELECT * FROM KhachHang where TenKH like "%${req.query.name}%" `
     databaseConfig.query(sql, function(err, rows) {
         if (err) {
@@ -203,7 +209,7 @@ router.post('/checkout', function(req, res, next) {
     var MaKH = parseInt(req.body.MaKH);
     var NgayLap = req.body.NgayLap;
     var rooms = JSON.parse(req.body.DS);
-    console.log(rooms)
+    //console.log(rooms)
     var MaHD;
     var GiaTri;
     var PTs;
@@ -214,7 +220,7 @@ router.post('/checkout', function(req, res, next) {
             req.flash('error', err);
             res.send(err.message);
         } else {
-            console.log(rows);
+            //console.log(rows);
             sql = `SELECT max(MaHD) "MaHD" FROM hoadon WHere MaKH = ${MaKH} AND NgayLap = '${NgayLap}'`
 
 
@@ -223,7 +229,7 @@ router.post('/checkout', function(req, res, next) {
                     req.flash('error', err);
                     res.send(err.message);
                 } else {
-                    console.log(rows);
+                    //console.log(rows);
                     MaHD = rows[0].MaHD;
                     sql = ``;
                     for (i = 0; i < rooms.length; i++) {
@@ -232,13 +238,13 @@ router.post('/checkout', function(req, res, next) {
                                 where MaPhong = ${rooms[i].MaPH} and NgayThue = '${rooms[i].NgayThue}';`
                     }
 
-                    console.log(sql);
+                    //console.log(sql);
                     databaseConfig.query(sql, function(err, rows, fields) {
                         if (err) {
                             req.flash('error', err);
                             res.send(err.message);
                         } else {
-                            console.log(rows);
+                            //console.log(rows);
                             sql = `SELECT GiaTri FROM hoadon WHere MaHD = ${MaHD}`
 
                             databaseConfig.query(sql, function(err, rows, fields) {
@@ -246,7 +252,7 @@ router.post('/checkout', function(req, res, next) {
                                     req.flash('error', err);
                                     res.send(err.message);
                                 } else {
-                                    console.log(rows);
+                                    //console.log(rows);
                                     GiaTri = rows[0].GiaTri;
                                     sql = `SELECT pt.*, l.DonGia,p.name FROM PhieuThuePhong pt join Phong p on pt.MaPhong = p.MaPhong
                                                     Join LoaiPhong l on p.type  = l.MaLoai
@@ -258,7 +264,7 @@ router.post('/checkout', function(req, res, next) {
                                             req.flash('error', err);
                                             res.send(err.message);
                                         } else {
-                                            console.log(rows);
+                                            //console.log(rows);
                                             PTs = rows;
                                             var result = { GiaTri: GiaTri, PTs: PTs }
                                             res.send(result);

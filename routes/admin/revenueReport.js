@@ -34,7 +34,7 @@ router.post('/', function (req, res, next) {
         } else {
             console.log(rows);
             res.render('admin/revenueReport/index', {
-                data: rows,
+                data: rows[2],
                 layout: 'orther'
             });
         }
