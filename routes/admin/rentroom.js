@@ -6,7 +6,7 @@ const { resolve } = require('path');
 
 // Danh sách phiếu thuê phòng
 router.get('/', function(req, res, next) {
-    const sql = 'SELECT * FROM phieuthuephong'
+    const sql = 'SELECT * FROM phieuthuephong order by NgayThue DESC'
     databaseConfig.query(sql, function(err, rows) {
         if (err) {
             req.flash('error', err);

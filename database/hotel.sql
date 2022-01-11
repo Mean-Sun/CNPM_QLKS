@@ -230,13 +230,13 @@ ALTER TABLE `quydinh`
 
 
 ALTER TABLE `phong`
-  MODIFY `MaPhong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `MaPhong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 ALTER TABLE `HoaDon`
-  MODIFY `MaHD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `MaHD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 ALTER TABLE `KhachHang`
-  MODIFY `MaKH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `MaKH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 
 ALTER TABLE `ct_phieuthuephong`
@@ -302,8 +302,7 @@ INSERT INTO `phong` ( `MaPhong`, `name`, `type`, `status`, `note`) VALUES
 ( 15, 'P203', 3, 'Trống', NULL),
 ( 16, 'P204', 3, 'Trống', NULL),
 ( 17, 'P205', 3, 'Trống', NULL),
-( 18, 'P206', 3, 'Trống', NULL),
-( 123, 'Nguyễn Văn Trung', 1, 'hết', 'adhajkldnawkld');
+( 18, 'P206', 3, 'Trống', NULL);
 
 
 INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `DiaChi`, `NgaySinh`, `SDT`, `email`, `MatKhau`, `Role`) VALUES
@@ -315,8 +314,10 @@ INSERT INTO `nhanvien` (`MaNV`, `TenNV`, `DiaChi`, `NgaySinh`, `SDT`, `email`, `
 INSERT INTO `phieuthuephong` (`MaPhong`, `NgayThue`, `NgayTra`, `MaHD`, `SoNgaySuDung`, `ThanhTien`, `TrangThaiThanhToan`) VALUES
 (1, '2021-12-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
 (2, '2021-12-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
-(3, '2021-12-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán');
-
+(3, '2021-12-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(4, '2021-12-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(5, '2021-12-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(6, '2021-12-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán');
 
 INSERT INTO `ct_phieuthuephong` (`MaPhong`, `NgayThue`, `MaKH`) VALUES
 (1, '2021-12-02', 1),
@@ -326,18 +327,193 @@ INSERT INTO `ct_phieuthuephong` (`MaPhong`, `NgayThue`, `MaKH`) VALUES
 (2, '2021-12-02', 4),
 (2, '2021-12-02', 5),
 (3, '2021-12-02', 8),
-(3, '2021-12-02', 9),
-(3, '2021-12-02', 10);
-
+(3, '2021-12-02', 10),
+(4, '2021-12-02', 3),
+(4, '2021-12-02', 2),
+(5, '2021-12-02', 3),
+(5, '2021-12-02', 4),
+(5, '2021-12-02', 11),
+(6, '2021-12-02', 7),
+(6, '2021-12-02', 1),
+(6, '2021-12-02', 10);
 
 INSERT INTO `hoadon` (`MaHD`, `MaKH`, `NgayLap`, `GiaTri`) VALUES
 (1, 1, '2021-12-10', 0);
-
 INSERT INTO `hoadon` (`MaHD`, `MaKH`, `NgayLap`, `GiaTri`) VALUES
 (2, 4, '2021-12-12', 0);
-
 INSERT INTO `hoadon` (`MaHD`, `MaKH`, `NgayLap`, `GiaTri`) VALUES
 (3, 9, '2021-12-15', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(4, '2021-12-10', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(5, '2021-12-15', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(6, '2021-12-08', 0);
 
 UPDATE `phieuthuephong` SET `MaHD` = '1' WHERE `phieuthuephong`.`MaPhong` = 1 AND `phieuthuephong`.`NgayThue` = '2021-12-02';
 UPDATE `phieuthuephong` SET `MaHD` = '2' WHERE `phieuthuephong`.`MaPhong` = 2 AND `phieuthuephong`.`NgayThue` = '2021-12-02';
+UPDATE `phieuthuephong` SET `MaHD` = '3' WHERE `phieuthuephong`.`MaPhong` = 3 AND `phieuthuephong`.`NgayThue` = '2021-12-02';
+UPDATE `phieuthuephong` SET `MaHD` = '4' WHERE `phieuthuephong`.`MaPhong` = 4 AND `phieuthuephong`.`NgayThue` = '2021-12-02';
+UPDATE `phieuthuephong` SET `MaHD` = '5' WHERE `phieuthuephong`.`MaPhong` = 5 AND `phieuthuephong`.`NgayThue` = '2021-12-02';
+UPDATE `phieuthuephong` SET `MaHD` = '6' WHERE `phieuthuephong`.`MaPhong` = 6 AND `phieuthuephong`.`NgayThue` = '2021-12-02';
+
+
+
+
+
+INSERT INTO `phieuthuephong` (`MaPhong`, `NgayThue`, `NgayTra`, `MaHD`, `SoNgaySuDung`, `ThanhTien`, `TrangThaiThanhToan`) VALUES
+(7, '2021-11-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(8, '2021-11-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(9, '2021-11-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(10, '2021-11-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(11, '2021-11-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(12, '2021-11-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán');
+
+INSERT INTO `ct_phieuthuephong` (`MaPhong`, `NgayThue`, `MaKH`) VALUES
+(10, '2021-11-02', 3),
+(10, '2021-11-02', 2),
+(10, '2021-11-02', 6),
+(11, '2021-11-02', 3),
+(11, '2021-11-02', 4),
+(11, '2021-11-02', 11),
+(12, '2021-11-02', 7),
+(12, '2021-11-02', 1),
+(12, '2021-11-02', 10),
+(7, '2021-11-02', 3),
+(7, '2021-11-02', 2),
+(7, '2021-11-02', 6),
+(8, '2021-11-02', 3),
+(8, '2021-11-02', 4),
+(9, '2021-11-02', 7),
+(9, '2021-11-02', 1),
+(9, '2021-11-02', 10);
+
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(7, '2021-11-10', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(8, '2021-11-08', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(9, '2021-11-08', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(8, '2021-11-08', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(1, '2021-11-15', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(2, '2021-11-08', 0);
+
+UPDATE `phieuthuephong` SET `MaHD` = '7' WHERE `phieuthuephong`.`MaPhong` = 7 AND `phieuthuephong`.`NgayThue` = '2021-11-02';
+UPDATE `phieuthuephong` SET `MaHD` = '8' WHERE `phieuthuephong`.`MaPhong` = 8 AND `phieuthuephong`.`NgayThue` = '2021-11-02';
+UPDATE `phieuthuephong` SET `MaHD` = '9' WHERE `phieuthuephong`.`MaPhong` = 9 AND `phieuthuephong`.`NgayThue` = '2021-11-02';
+UPDATE `phieuthuephong` SET `MaHD` = '10' WHERE `phieuthuephong`.`MaPhong` = 10 AND  `phieuthuephong`.`NgayThue` = '2021-11-02';
+UPDATE `phieuthuephong` SET `MaHD` = '11' WHERE `phieuthuephong`.`MaPhong` = 11 AND  `phieuthuephong`.`NgayThue` = '2021-11-02';
+UPDATE `phieuthuephong` SET `MaHD` = '12' WHERE `phieuthuephong`.`MaPhong` = 12 AND  `phieuthuephong`.`NgayThue` = '2021-11-02';
+
+
+
+INSERT INTO `phieuthuephong` (`MaPhong`, `NgayThue`, `NgayTra`, `MaHD`, `SoNgaySuDung`, `ThanhTien`, `TrangThaiThanhToan`) VALUES
+(13, '2021-10-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(14, '2021-10-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(15, '2021-10-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(16, '2021-10-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(17, '2021-10-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(18, '2021-10-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(1, '2021-10-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(10, '2021-10-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán');
+
+INSERT INTO `ct_phieuthuephong` (`MaPhong`, `NgayThue`, `MaKH`) VALUES
+(13, '2021-10-02', 6),
+(13, '2021-10-02', 9),
+(14, '2021-10-02', 4),
+(14, '2021-10-02', 7),
+(15, '2021-10-02', 8),
+(15, '2021-10-02', 4),
+(15, '2021-10-02', 9),
+(16, '2021-10-02', 4),
+(16, '2021-10-02', 5),
+(16, '2021-10-02', 9),
+(17, '2021-10-02', 2),
+(17, '2021-10-02', 8),
+(18, '2021-10-02', 2),
+(18, '2021-10-02', 8),
+(18, '2021-10-02', 9),
+(1, '2021-10-02', 6),
+(1, '2021-10-02', 3),
+(1, '2021-10-02', 10),
+(10, '2021-10-02', 8),
+(10, '2021-10-02', 10);
+
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(3, '2021-10-10', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(4, '2021-10-08', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(5, '2021-10-15', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(6, '2021-10-08', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(7, '2021-10-10', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(8, '2021-10-08', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(9, '2021-10-15', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(10, '2021-10-08', 0);
+
+
+UPDATE `phieuthuephong` SET `MaHD` = '13' WHERE `phieuthuephong`.`MaPhong` = 13 AND  `phieuthuephong`.`NgayThue` = '2021-10-02';
+UPDATE `phieuthuephong` SET `MaHD` = '14' WHERE `phieuthuephong`.`MaPhong` = 14 AND  `phieuthuephong`.`NgayThue` = '2021-10-02';
+UPDATE `phieuthuephong` SET `MaHD` = '15' WHERE `phieuthuephong`.`MaPhong` = 15 AND  `phieuthuephong`.`NgayThue` = '2021-10-02';
+UPDATE `phieuthuephong` SET `MaHD` = '16' WHERE `phieuthuephong`.`MaPhong` = 16 AND  `phieuthuephong`.`NgayThue` = '2021-10-02';
+UPDATE `phieuthuephong` SET `MaHD` = '17' WHERE `phieuthuephong`.`MaPhong` = 17 AND  `phieuthuephong`.`NgayThue` = '2021-10-02';
+UPDATE `phieuthuephong` SET `MaHD` = '18' WHERE `phieuthuephong`.`MaPhong` = 18 AND  `phieuthuephong`.`NgayThue` = '2021-10-02';
+UPDATE `phieuthuephong` SET `MaHD` = '19' WHERE `phieuthuephong`.`MaPhong` = 1 AND `phieuthuephong`.`NgayThue` = '2021-10-02';
+UPDATE `phieuthuephong` SET `MaHD` = '20' WHERE `phieuthuephong`.`MaPhong` = 10 AND  `phieuthuephong`.`NgayThue` = '2021-10-02';
+
+
+
+INSERT INTO `phieuthuephong` (`MaPhong`, `NgayThue`, `NgayTra`, `MaHD`, `SoNgaySuDung`, `ThanhTien`, `TrangThaiThanhToan`) VALUES
+(11, '2021-09-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(12, '2021-09-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(13, '2021-09-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(14, '2021-09-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(15, '2021-09-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán'),
+(16, '2021-09-02', NULL, NULL, NULL, NULL, 'Chưa thanh toán');
+
+INSERT INTO `ct_phieuthuephong` (`MaPhong`, `NgayThue`, `MaKH`) VALUES
+(11, '2021-09-02', 4),
+(11, '2021-09-02', 6),
+(11, '2021-09-02', 10),
+(12, '2021-09-02', 4),
+(12, '2021-09-02', 8),
+(12, '2021-09-02', 2),
+(13, '2021-09-02', 4),
+(13, '2021-09-02', 8),
+(13, '2021-09-02', 10),
+(14, '2021-09-02', 4),
+(14, '2021-09-02', 6),
+(15, '2021-09-02', 4),
+(15, '2021-09-02', 6),
+(15, '2021-09-02', 7),
+(16, '2021-09-02', 5),
+(16, '2021-09-02', 7),
+(16, '2021-09-02', 9);
+
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(1, '2021-09-10', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(2, '2021-09-10', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(3, '2021-09-10', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(4, '2021-09-10', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(5, '2021-09-15', 0);
+INSERT INTO `hoadon` (`MaKH`, `NgayLap`, `GiaTri`) VALUES
+(6, '2021-09-15', 0);
+
+UPDATE `phieuthuephong` SET `MaHD` = '21' WHERE `phieuthuephong`.`MaPhong` = 11 AND  `phieuthuephong`.`NgayThue` = '2021-09-02';
+UPDATE `phieuthuephong` SET `MaHD` = '22' WHERE `phieuthuephong`.`MaPhong` = 12 AND  `phieuthuephong`.`NgayThue` = '2021-09-02';
+UPDATE `phieuthuephong` SET `MaHD` = '23' WHERE `phieuthuephong`.`MaPhong` = 13 AND  `phieuthuephong`.`NgayThue` = '2021-09-02';
+UPDATE `phieuthuephong` SET `MaHD` = '24' WHERE `phieuthuephong`.`MaPhong` = 14 AND  `phieuthuephong`.`NgayThue` = '2021-09-02';
+UPDATE `phieuthuephong` SET `MaHD` = '25' WHERE `phieuthuephong`.`MaPhong` = 15 AND  `phieuthuephong`.`NgayThue` = '2021-09-02';
+UPDATE `phieuthuephong` SET `MaHD` = '26' WHERE `phieuthuephong`.`MaPhong` = 16 AND  `phieuthuephong`.`NgayThue` = '2021-09-02';

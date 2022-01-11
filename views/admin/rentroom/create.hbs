@@ -179,6 +179,7 @@
     function delete_row(id){
         document.getElementById(id).remove();
         document.getElementById('select-customer-help').innerHTML = '';
+        document.getElementById('submit-rentroom-btn').disabled = false;
     }
 
     function add_rentroom(){
