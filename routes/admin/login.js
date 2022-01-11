@@ -10,8 +10,7 @@ router.get('/', function (req, res, next) {
     res.render('admin/auth/login', {
         layout: 'orther'
     });
-})
-
+});
 
 router.post('/', function (req, res, next) {
     let message = '';
@@ -78,12 +77,11 @@ router.post('/', function (req, res, next) {
             );
         }
     });
-})
-
+});
 
 /*router.post('/', passport.authenticate('local', { failureRedirect: '/login', failureMessage: true }),
     function(req, res) {
         res.redirect('/' + req.user.TenNV);
     });*/
 
-module.exports = router
+module.exports = router;

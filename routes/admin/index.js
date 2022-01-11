@@ -1,8 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var databaseConfig = require('../../models/db');
-
-var fs = require('fs');
+const express = require('express');
+const router = express.Router();
+const databaseConfig = require('../../models/db');
+const fs = require('fs');
 
 router.get('/', function(req, res, next) {
     res.render('admin/home/home', {
@@ -10,4 +9,4 @@ router.get('/', function(req, res, next) {
     });
 });
 
-module.exports = router
+module.exports = router;
