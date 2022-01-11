@@ -24,7 +24,6 @@ const revenueRouter = require('./routes/admin/revenueReport');
 const loginRouter = require('./routes/admin/login');
 const registerRouter = require('./routes/admin/register');
 const densityRouter = require('./routes/admin/densityReport');
-const authRouter = require('./routes/admin/authen');
 const app = express();
 
 // view engine setup
@@ -84,7 +83,6 @@ app.use('/customer',customerRouter);
 app.use('/revenueReport',revenueRouter);
 app.use('/densityReport',densityRouter);
 app.use('/register',registerRouter);
-app.use('/auth', authRouter);
 
 // app.use(function (req, res, next) {
 //   if (req.session.daDangNhap) {
