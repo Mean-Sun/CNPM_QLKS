@@ -33,17 +33,22 @@
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Số điện thoại</label>
                         <input class="form-control" id="exampleInputPassword1" placeholder="Nhập số điện thoại"
-                            style='number' name="SDT" value="{{SDT}}">
+                            type="number" name="SDT" value="{{SDT}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Email</label>
-                        <input style="email" class="form-control" id="exampleInputPassword1" placeholder="Nhập email" 
+                        <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Nhập email"
                             name="email" value="{{email}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Mật khẩu</label>
                         <input class="form-control" id="exampleInputPassword1" placeholder="Password" name="MatKhau"
-                            value="{{MatKhau}}">
+                            type="password" value="{{MatKhau}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Xác nhận mật khẩu</label>
+                        <input class="form-control" id="exampleInputPassword1" placeholder="rePassword" name="MatKhau"
+                               type="password" value="{{reMatKhau}}">
                     </div>
                     {{!-- <div class="form-group">
                         <label for="exampleFormControlFile1">Chức vụ</label>
@@ -51,13 +56,13 @@
                             value="{{Role}}">
 
                     </div> --}}
-                    <div class="form-group"></div>
+                    <div class="form-group">
                     <label for="exampleFormControlFile1">Chức vụ</label>
                     <select class="form-select" id="exampleInputPassword1" aria-label="Default select example" name="Role" >
                         <option value="quản lý">ADMIN</option>
                         <option value="nhân viên">Nhân viên</option>
                     </select>
-                     </div>
+                    </div>
             <button type="submit" class="btn btn-primary mt-2" value="create">Submit</button>
             </form>
         </div>

@@ -23,7 +23,7 @@ router.get('/', function (req, res, next) {
     })
 })
 
-// Get view add Product
+// Get view add staff
 router.get('/create', function (req, res, next) {
     res.render('admin/staff/create',
         {
@@ -31,9 +31,78 @@ router.get('/create', function (req, res, next) {
         });
 })
 
-// add room
+// add staff
 router.post('/create', function (req, res, next) {
-    let MaNV = req.body.MaNV;
+    let staff = {
+        TenNV: req.body.TenNV,
+        DiaChi: req.body.DiaChi,
+        NgaySinh: req.body.NgaySinh,
+        SDT: req.body.SDT,
+        email: req.body.email,
+        MatKhau: req.body.MatKhau,
+        Role: req.body.Role,
+        isDel: 0
+    }
+
+    const reMatKhau = req.body.reMatKhau;
+
+    let message = '';
+
+    if (staff.TenNV === '') {
+        message = 'Tên không được để trống';
+        return res.render('admin/staff/create', {
+            staff,
+            message,
+            layout: 'orther'
+        });
+    }
+
+    if (staff.email === '') {
+        message = 'Email không được để trống';
+        return res.render('admin/staff/create', {
+            staff,
+            message,
+            layout: 'orther'
+        });
+    }
+
+    if (staff.MatKhau === '') {
+        message = 'Mật khẩu không được để trống';
+        return res.render('admin/staff/create', {
+            staff,
+            message,
+            layout: 'orther'
+        });
+    }
+
+    if (staff.MatKhau !== reMatKhau) {
+        message = 'Mật khẩu không khớp';
+        return res.render('admin/staff/create', {
+            staff,
+            message,
+            layout: 'orther'
+        });
+    }
+
+    databaseConfig.query('INSERT INTO nhanvien SET ?', staff, function (err, result) {
+        if (err) {
+            message = 'Đã xảy ra lỗi, vui lòng kiểm tra lại dữ liệu!!!'
+            req.flash('error', err)
+            console.log(err)
+            // render to add.ejs
+            res.render('admin/staff/create', {
+                staff,
+                message,
+                layout: 'orther',
+            })
+        } else {
+            req.flash('success', 'Product successfully added');
+            res.redirect('/staff/');
+        }
+    })
+
+
+    /*let MaNV = req.body.MaNV;
     let TenNV = req.body.TenNV;
     let DiaChi = req.body.DiaChi;
     let NgaySinh = req.body.NgaySinh;
@@ -79,7 +148,7 @@ router.post('/create', function (req, res, next) {
                 res.redirect('/staff/');
             }
         })
-    }
+    }*/
 })
 
 // get view edit
