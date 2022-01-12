@@ -22,7 +22,7 @@ const ruleRouter = require('./routes/admin/rule');
 const customerRouter = require('./routes/admin/customer');
 const revenueRouter = require('./routes/admin/revenueReport');
 const loginRouter = require('./routes/admin/login');
-const registerRouter = require('./routes/admin/register');
+const logoutRouter = require('./routes/admin/logout');
 const densityRouter = require('./routes/admin/densityReport');
 const app = express();
 
@@ -58,7 +58,6 @@ app.use(
 );
 
 app.use(express.static(path.join(__dirname, '/publics/')));
-/*
 
 app.use('/login', loginRouter);
 
@@ -70,7 +69,6 @@ app.use('*', function (req, res, next) {
         next();
     }
 });
-*/
 
 
 app.use(flash());
@@ -84,26 +82,8 @@ app.use('/rule-info',ruleRouter);
 app.use('/customer',customerRouter);
 app.use('/revenueReport',revenueRouter);
 app.use('/densityReport',densityRouter);
-app.use('/register',registerRouter);
+app.use('/logout', logoutRouter);
 
-// app.use(function (req, res, next) {
-//   if (req.session.daDangNhap) {
-//     app.use('/', index);
-//     app.use('/admin',adminProductRouter);
-//     app.use('/room',roomRouter);
-//     app.use('/typeroom',typeRoomRouter);
-//     app.use('/rentroom',rentRoomRouter);
-//     app.use('/staff',staffRouter);
-//     app.use('/rule-info',ruleRouter);
-//     app.use('/customer',customerRouter);
-//     app.use('/revenueReport',revenueRouter);
-//     app.use('/densityReport',densityRouter);
-//   }
-//   else{
-//     res.redirect('/auth/login')
-//     // return false
-//   }
-// })
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

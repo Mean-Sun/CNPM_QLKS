@@ -79,9 +79,4 @@ router.post('/', function (req, res, next) {
     });
 });
 
-/*router.post('/', passport.authenticate('local', { failureRedirect: '/login', failureMessage: true }),
-    function(req, res) {
-        res.redirect('/' + req.user.TenNV);
-    });*/
-
 module.exports = router;
