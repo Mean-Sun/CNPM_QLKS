@@ -58,8 +58,6 @@ router.post('/', function (req, res, next) {
                             email: rows[0].email
                         }
 
-                        //global.user = User;
-                        //message = 'Đăng nhập thành công';
                         req.session.user = User;
                         return res.redirect('/');
                         /*return res.render('admin/auth/login', {

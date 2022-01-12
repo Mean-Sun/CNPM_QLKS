@@ -5,6 +5,7 @@ const fs = require('fs');
 
 router.get('/', function(req, res, next) {
     res.render('admin/home/home', {
+        user: req.session.user,
         layout: 'orther',
     });
 });
