@@ -58,6 +58,7 @@ app.use(
 );
 
 app.use(express.static(path.join(__dirname, '/publics/')));
+/*
 
 app.use('/login', loginRouter);
 
@@ -69,6 +70,7 @@ app.use('*', function (req, res, next) {
         next();
     }
 });
+*/
 
 
 app.use(flash());

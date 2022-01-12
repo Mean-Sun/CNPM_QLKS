@@ -68,6 +68,15 @@ router.post('/create', function (req, res, next) {
         });
     }
 
+    if (staff.NgaySinh === '') {
+        message = 'Vui lòng chọn ngày sinh';
+        return res.render('admin/staff/create', {
+            staff,
+            message,
+            layout: 'orther'
+        });
+    }
+
     if (staff.MatKhau === '') {
         message = 'Mật khẩu không được để trống';
         return res.render('admin/staff/create', {
@@ -109,7 +118,12 @@ router.post('/create', function (req, res, next) {
                         staff.MatKhau = hash;
                         databaseConfig.query('INSERT INTO nhanvien SET ?', staff, function (err, result) {
                             if (err) {
-                                console.log(err);
+                                message = 'Đã có lỗi xảy ra, vui lòng kiểm tra lại dữ liệu';
+                                return res.render('admin/staff/create', {
+                                    staff,
+                                    message,
+                                    layout: 'orther'
+                                });
                             } else {
                                 req.flash('success', 'Product successfully added');
                                 res.redirect('/staff/');
@@ -124,24 +138,23 @@ router.post('/create', function (req, res, next) {
 
 // get view edit
 router.get('/edit/(:MaNV)', function (req, res, next) {
-    let id = req.params.MaNV;
+    const id = req.params.MaNV;
     databaseConfig.query(`SELECT * FROM nhanvien where MaNV =` + id, function (err, rows, fields) {
-        if(err) throw err
-        if (rows.length <= 0) {
-            req.flash('error', 'Phong not found with MaNV = ' + id)
-            res.redirect('/staff/edit/')
-        }
-        else{
-            res.render('admin/staff/edit',{
-                MaNV:rows[0].MaNV,
-                TenNV:rows[0].TenNV,
+        if(err) throw err;
+        else {
+            const staff = {
+                MaNV: id,
+                TenNV: rows[0].TenNV,
                 DiaChi: rows[0].DiaChi,
                 NgaySinh: rows[0].NgaySinh,
                 SDT: rows[0].SDT,
                 email: rows[0].email,
-                MatKhau: rows[0].MatKhau,
                 Role: rows[0].Role,
                 isDel: rows[0].isDel,
+            }
+
+            res.render('admin/staff/edit',{
+                staff,
                 layout:'orther'
             })
         }
@@ -150,7 +163,63 @@ router.get('/edit/(:MaNV)', function (req, res, next) {
 
 // edit staff
 router.post('/edit/:MaNV',function(req,res,next){
-    let MaNV = req.body.MaNV;
+
+    let staff = {
+        MaNV: req.params.MaNV,
+        TenNV: req.body.TenNV,
+        DiaChi: req.body.DiaChi,
+        NgaySinh: req.body.NgaySinh,
+        SDT: req.body.SDT,
+        email: req.body.email,
+        Role: req.body.Role,
+        isDel: req.body.isDel
+    }
+
+    let message = '';
+
+    if (staff.TenNV === '') {
+        message = 'Tên không được để trống';
+        return res.render('admin/staff/edit', {
+            staff,
+            message,
+            layout: 'orther'
+        });
+    }
+
+    if (staff.email === '') {
+        message = 'Email không được để trống';
+        return res.render('admin/staff/edit', {
+            staff,
+            message,
+            layout: 'orther'
+        });
+    }
+
+    if (staff.NgaySinh === '') {
+        message = 'Vui lòng chọn ngày sinh';
+        return res.render('admin/staff/edit', {
+            staff,
+            message,
+            layout: 'orther'
+        });
+    }
+
+    databaseConfig.query('UPDATE nhanvien SET ? WHERE MaNV = ' + staff.MaNV, staff, function(err, result) {
+        if (err) {
+            req.flash('error', err);
+            message = "Đã có lỗi xảy ra, vui lòng kiểm tra lại dữ liệu";
+            res.render('admin/staff/edit', {
+                staff,
+                message,
+                layout: 'orther',
+            })
+        } else {
+            req.flash('success', 'Update Product successfully added');
+            res.redirect('/staff/');
+        }
+    });
+
+    /*let MaNV = req.body.MaNV;
     let TenNV = req.body.TenNV;
     let DiaChi = req.body.DiaChi;
     let NgaySinh = req.body.NgaySinh;
@@ -195,7 +264,7 @@ router.post('/edit/:MaNV',function(req,res,next){
                     res.redirect('/staff/');
                 }
             })
-    }
+    }*/
 
 })
 
@@ -204,17 +273,15 @@ router.get('/delete/(:MaNV)', function (req, res, next) {
 
     let id = req.params.MaNV;
 
-    databaseConfig.query('UPDATE nhanvien SET ? WHERE MaNV = ' + id, function (err, result) {
+    databaseConfig.query('UPDATE nhanvien SET isDel = 1 WHERE MaNV = ' + id, function (err, result) {
         //if(err) throw err
         if (err) {
-            // set flash message
-            req.flash('error', err)
-            // redirect to books page
-            res.redirect('/staff/')
+            req.flash('error', err);
+            res.redirect('/staff/');
         } else {
-            // set flash message
+
             req.flash('success', 'Book successfully deleted! id = ' + id)
-            // redirect to books page
+
             res.redirect('/staff/')
         }
     })
