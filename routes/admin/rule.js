@@ -111,23 +111,23 @@ router.post('/edit/:id', function(req, res, next) {
 
 })
 
-//Xoa
-router.get('/delete/:id',function(req,res,next){
-    let id = req.params.id;
+// //Xoa
+// router.get('/delete/:id',function(req,res,next){
+//     let id = req.params.id;
 
-    databaseConfig.query('DELETE FROM quydinh WHERE id = ' + id, function(err, result) {
-        //if(err) throw err
-        if (err) {
-            // set flash message
-            req.flash('error', err);
-            // redirect to books page
-            res.redirect('/rule-info/');
-        } else {
-            // set flash message
-            req.flash('success', 'Rule successfully deleted! ID = ' + id);
-            // redirect to books page
-            res.redirect('/rule-info/');
-        }
-    })
-})
+//     databaseConfig.query('DELETE FROM quydinh WHERE id = ' + id, function(err, result) {
+//         //if(err) throw err
+//         if (err) {
+//             // set flash message
+//             req.flash('error', err);
+//             // redirect to books page
+//             res.redirect('/rule-info/');
+//         } else {
+//             // set flash message
+//             req.flash('success', 'Rule successfully deleted! ID = ' + id);
+//             // redirect to books page
+//             res.redirect('/rule-info/');
+//         }
+//     })
+// })
 module.exports=router
