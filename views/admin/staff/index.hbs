@@ -38,12 +38,14 @@
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
                                         aria-label="Age: activate to sort column ascending" style="width: 100.453px;">
                                         Email</th>
-                            
                                     <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Age: activate to sort column ascending" style="width: 150px;">
+                                        aria-label="Age: activate to sort column ascending" style="width: 80px;">
                                         Chức vụ</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                                        aria-label="Age: activate to sort column ascending" style="width: 50px;">
+                                        isDel</th>
                                      <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
-                                        aria-label="Age: activate to sort column ascending" style="width: 150px;">
+                                        aria-label="Age: activate to sort column ascending" style="width: 200px;">
                                         Edit</th>
                                 </tr>
                             </thead>
@@ -57,14 +59,12 @@
                                     <td>{{NgaySinh}}</td>
                                     <td>{{SDT}}</td>
                                     <td>{{email}}</td>
-                                
-                                    <td>{{Role}}</td>     
+                                    <!--<td>{{MatKhau}}</td>-->
+                                    <td>{{Role}}</td>
+                                    <td>{{isDel}}</td>
                                     <td >
                                         <a class="btn btn-success edit" href="/staff/edit/{{MaNV}}">Edit</a>
-                                         <a class="btn btn-danger delete" onclick="return confirm('Are You sure?')" href="/staff/delete/{{MaNV}}">Delete</a> 
-                                        {{!-- 
-                                        <a class="btn btn-danger delete" onclic
-                                            href="/admin/product/delete/{{id}}">Delete</a> --}}
+                                         <a class="btn btn-danger delete" onclick="return confirm('Are You sure?')" href="/staff/delete/{{MaNV}}">Delete</a>
                                     </td>
                                 </tr>
                                 {{/each}}

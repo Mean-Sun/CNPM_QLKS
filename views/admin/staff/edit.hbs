@@ -9,55 +9,74 @@
             </div> --}}
         </div>
     </div>
+    {{#if message}}
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-sm-11">
+                    <h4 class="m-0 font-weight-bold text-primary" >{{message}}</h4>
+                </div>
+            </div>
+        </div>
+    {{/if}}
     <div class="card-body">
         <div style="overflow: hidden;" class="table-responsive">
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                <form action="/staff/edit/{{MaNV}}" method="post" id="createForm" >
-                    <div class="form-group">
+                <form action="/staff/edit/{{staff.MaNV}}" method="post" id="createForm" >
+                    <!--<div class="form-group">
                         <label for="exampleInputEmail1">Mã nhân viên</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                             placeholder="Enter email" name="MaNV" value="{{MaNV}}">
-                    </div>
+                    </div>-->
                     <div class="form-group">
                         <label for="exampleInputPassword1">Tên nhân viên</label>
                         <input type="text" class="form-control" id="exampleInputPassword1" 
-                            name="TenNV" value="{{TenNV}}">
+                            name="TenNV" value="{{staff.TenNV}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Địa chỉ</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" 
-                            name="DiaChi" value="{{DiaChi}}">
+                        <input type="text" class="form-control" id="exampleInputPassword1"
+                            name="DiaChi" value="{{staff.DiaChi}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Ngày sinh</label>
                         <input type="date" class="form-control" id="exampleInputPassword1" 
-                            name="NgaySinh" value="{{NgaySinh}}">
+                            name="NgaySinh" value="{{staff.NgaySinh}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Số điện thoại</label>
                           <input class="form-control" id="exampleInputPassword1" 
-                            name="SDT" value="{{SDT}}">
+                            name="SDT" value="{{staff.SDT}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Email</label>
                           <input class="form-control" id="exampleInputPassword1" 
-                            name="email" value="{{email}}">
+                            name="email" value="{{staff.email}}">
+                    </div>
+                    <!--<div class="form-group">
+                        <label for="exampleFormControlFile1">Mật khẩu Mới</label>
+                          <input class="form-control" id="exampleInputPassword1"  type="password"
+                            name="MatKhau" value="">
                     </div>
                     <div class="form-group">
-                        <label for="exampleFormControlFile1">Mật khẩu</label>
-                          <input class="form-control" id="exampleInputPassword1" 
-                            name="MatKhau" value="{{MatKhau}}">
+                        <label for="exampleFormControlFile1">Xác nhận Mật khẩu</label>
+                        <input class="form-control" id="exampleInputPassword1" type="password"
+                               name="reMatKhau" value="">
+                    </div>-->
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">isDel</label>
+                        <input class="form-control" id="exampleInputPassword1" type="number" min="0" max="1"
+                               name="isDel" value="{{staff.isDel}}">
                     </div>
                     {{!-- <div class="form-group">
                         <label for="exampleFormControlFile1">Chức vụ</label>
                           <input class="form-control" id="exampleInputPassword1" 
                             name="Role" value="{{Role}}">
                     </div> --}}
-                     <div class="form-group"></div>
+                     <div class="form-group">
                         <label for="exampleFormControlFile1">Chức vụ</label>
                         <select class="form-select" id="exampleInputPassword1" aria-label="Default select example" name="Role" >
-                            <option value="quản lý">ADMIN</option>
-                            <option value="nhân viên">Nhân viên</option>
+                            <option value="Admin">Admin</option>
+                            <option value="NV">Nhân viên</option>
                         </select>
                      </div>
                     <button type="submit" class="btn btn-primary mt-2" value="create">Submit</button>
