@@ -9,9 +9,10 @@ router.get('/', function (req, res, next) {
     databaseConfig.query(sql, function (err, rows) {
         if (err) {
             req.flash('error', err);
-            res.render('admin/customer/index',
-                { data: '',
-                    layout:'orther' });
+            res.render('admin/customer/index', {
+                data: '',
+                layout: 'orther'
+            });
         } else {
             res.render('admin/customer/index',
                 {
@@ -19,7 +20,6 @@ router.get('/', function (req, res, next) {
                     layout: 'orther'
                 });
         }
-
     })
 })
 
@@ -33,112 +33,116 @@ router.get('/create', function (req, res, next) {
 
 // add customer
 router.post('/create', function (req, res, next) {
-    const MaKH = req.body.MaKH;
-    const TenKH = req.body.TenKH;
-    const CMND = req.body.CMND;
-    const DiaChi = req.body.DiaChi;
-    const SDT = req.body.SDT;
-    const LoaiKH = req.body.LoaiKH;
-
-    let errors = false;
-    if (!errors) {
-        const form_data = {
-            MaKH: MaKH,
-            TenKH: TenKH,
-            DiaChi: DiaChi,
-            SDT: SDT,
-            CMND: CMND,
-            LoaiKH: LoaiKH,
-        }
-        databaseConfig.query('INSERT INTO khachhang SET ?', form_data, function (err, result) {
-            if (err) {              
-                req.flash('error', err)
-                res.render('admin/customer/create', {
-                    MaKH: form_data.MaKH,
-                    TenKH: form_data.TenKH,
-                    DiaChi: form_data.DiaChi,
-                    SDT:form_data.SDT,
-                    CMND:form_data.CMND,
-                    LoaiKH: form_data.LoaiKH,
-                    layout: 'orther',
-                })
-            } else {
-                req.flash('success', 'Customer successfully added');
-                res.redirect('/customer/');
-            }
-        })
+    let customer = {
+        MaKH: 0,
+        TenKH: req.body.TenKH,
+        CMND: req.body.CMND,
+        DiaChi: req.body.DiaChi,
+        SDT: req.body.SDT,
+        LoaiKH: req.body.LoaiKH
     }
+
+    let message = '';
+
+    if (customer.TenKH === '') {
+        message = 'Vui lòng nhập họ tên';
+        return res.render('admin/customer/create', {
+            customer,
+            message,
+            layout: 'orther'
+        });
+    }
+
+    databaseConfig.query('SELECT MaKH FROM khachhang ORDER BY MaKH DESC LIMIT 0, 1', function (err, rows) {
+            if (err) {
+                req.flash('error', err);
+            } else {
+                customer.MaKH = rows[0].MaKH + 1;
+                databaseConfig.query('INSERT INTO khachhang SET ?', customer, function (err, result) {
+                    if (err) {
+                        req.flash('error', err)
+                        message = 'Đã có lỗi xảy ra, vui lòng kiểm tra lại dữ liệu';
+                        res.render('admin/customer/create', {
+                            customer,
+                            message,
+                            layout: 'orther',
+                        })
+                    } else {
+                        req.flash('success', 'Customer successfully added');
+                        res.redirect('/customer/');
+                    }
+                })
+            }
+        }
+    );
 })
 
 // get view edit
 router.get('/edit/(:MaKH)', function (req, res, next) {
     const id = req.params.MaKH;
     databaseConfig.query(`SELECT * FROM khachhang where MaKH =` + id, function (err, rows, fields) {
-        if(err) throw err
-        if (rows.length <= 0) {
-            req.flash('error', 'KH not found with MaKH = ' + id)
-            res.redirect('/customer/edit/')
+        if (err) throw err;
+        const customer = {
+            MaKH: id,
+            TenKH: rows[0].TenKH,
+            DiaChi: rows[0].DiaChi,
+            CMND: rows[0].CMND,
+            SDT: rows[0].SDT,
+            LoaiKH: rows[0].LoaiKH,
+            isDel: rows[0].isDel
         }
-        else{
-            res.render('admin/customer/edit',{
-                MaKH:rows[0].MaKH,
-                TenKH:rows[0].TenKH,
-                DiaChi: rows[0].DiaChi,
-                CMND: rows[0].CMND,
-                SDT: rows[0].SDT,
-                LoaiKH: rows[0].LoaiKH,
-                layout:'orther'
-            })
-        }
+
+        res.render('admin/customer/edit', {
+            customer,
+            layout: 'orther'
+        })
     })
 })
 
 // Sửa khách hàng
-router.post('/edit/:MaKH',function(req,res,next){
-    let MaKH = req.body.MaKH;
-    let TenKH = req.body.TenKH;
-    let DiaChi = req.body.DiaChi;
-    let CMND = req.body.CMND;
-    let SDT = req.body.SDT;
-    let LoaiKH = req.body.LoaiKH;
-    let errors = false;
-    if (!errors) {
-        var form_data = {
-            MaKH: MaKH,
-            TenKH: TenKH,
-            DiaChi: DiaChi,
-            CMND: CMND,
-            SDT: SDT,
-            LoaiKH: LoaiKH,
-        }
-        databaseConfig.query('UPDATE khachhang SET ? WHERE MaKH = ' + MaKH, form_data, function(err, result) {
-            if (err) {
-                req.flash('error', err)
-                // render to add.ejs
-                res.render('admin/customer/edit', {
-                    MaKH: form_data.MaKH,
-                    TenKH: form_data.TenKH,
-                    DiaChi: form_data.DiaChi,
-                    CMND: form_data.CMND,
-                    SDT:form_data.SDT,
-                    LoaiKH:form_data.LoaiKH,
-                    layout: 'orther',
-                })
-            } else {
-                req.flash('success', 'Update customer successfully added');
-                res.redirect('/customer/');
-            }
-        })
+router.post('/edit/:MaKH', function (req, res, next) {
+    let customer = {
+        MaKH: req.params.MaKH,
+        TenKH: req.body.TenKH,
+        CMND: req.body.CMND,
+        DiaChi: req.body.DiaChi,
+        SDT: req.body.SDT,
+        LoaiKH: req.body.LoaiKH,
+        isDel: req.body.isDel
     }
 
+    let message = '';
+
+    if (customer.TenKH === '') {
+        message = 'Vui lòng nhập họ tên';
+        return res.render('admin/customer/edit', {
+            customer,
+            message,
+            layout: 'orther'
+        });
+    }
+
+    databaseConfig.query('UPDATE khachhang SET ? WHERE MaKH = ' + customer.MaKH, customer, function (err, result) {
+        if (err) {
+            req.flash('error', err);
+            message = 'Đã có lỗi xảy ra, vui lòng kiểm tra lại dữ liệu';
+            res.render('admin/customer/edit', {
+                customer,
+                message,
+                layout: 'orther',
+            })
+        } else {
+            req.flash('success', 'Update customer successfully added');
+            res.redirect('/customer/');
+        }
+    })
 })
 
 // Xóa
 router.get('/delete/(:MaKH)', function (req, res, next) {
-
     const id = req.params.MaKH;
 
-    databaseConfig.query('DELETE FROM khachhang WHERE MaKH = ' + id, function (err, result) {
+    databaseConfig.query('UPDATE khachhang SET isDel = 1 WHERE MaKH = ' + id, function (err, result) {
         if (err) {
             req.flash('error', err);
             res.redirect('/customer/');
@@ -149,5 +153,4 @@ router.get('/delete/(:MaKH)', function (req, res, next) {
     });
 })
 
-
-module.exports=router
+module.exports = router;

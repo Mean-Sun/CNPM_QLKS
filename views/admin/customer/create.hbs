@@ -9,34 +9,43 @@
             </div> --}}
         </div>
     </div>
+    {{#if message}}
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-sm-11">
+                    <h4 class="m-0 font-weight-bold text-primary">{{message}}</h4>
+                </div>
+            </div>
+        </div>
+    {{/if}}
     <div class="card-body">
         <div style="overflow: hidden;" class="table-responsive">
             <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                <form action="/customer/create" method="post" id="createForm" >
-                    <div class="form-group">
+                <form action="/customer/create" method="post" id="createForm">
+                    <!--<div class="form-group">
                         <label for="exampleInputEmail1">Mã khách hàng</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                                placeholder="Nhập mã khách hàng" name="MaKH" value="{{MaKH}}">
-                    </div>
+                    </div>-->
                     <div class="form-group">
                         <label for="exampleInputPassword1">Tên khách hàng</label>
                         <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Tên KH"
-                               name="Nhập tên khách hàng" value="{{TenKH}}">
+                               name="TenKH" value="{{customer.TenKH}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">CMND</label>
                         <input class="form-control" id="exampleInputPassword1" placeholder="CMND" style="number"
-                               name="CMND" value="{{CMND}}">
+                               name="CMND" value="{{customer.CMND}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Số điện thoại</label>
                         <input class="form-control" id="exampleInputPassword1" placeholder="SĐT" style="number"
-                               name="SDT" value="{{SDT}}">
+                               name="SDT" value="{{customer.SDT}}">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Địa chỉ</label>
                         <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Địa chỉ"
-                               name="DiaChi" value="{{DiaChi}}">
+                               name="DiaChi" value="{{customer.DiaChi}}">
                     </div>
 
                     {{!-- <div class="form-group">
@@ -44,13 +53,14 @@
                         <input class="form-control" id="exampleInputPassword1" placeholder="Loại khách sạn"
                                name="LoaiKH" value="{{LoaiKH}}">
                     </div> --}}
-                    <div class="form-group"></div>
-                    <label for="exampleFormControlFile1">Loại Khách hàng</label>
-                    <select class="form-select" id="exampleInputPassword1" aria-label="Default select example" name="LoaiKH" >
-                        <option value="Khách nội địa">Khách nội địa</option>
-                        <option value="Khách nước ngoài">Khách nước ngoài</option>
-                    </select>
-                     </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Loại Khách hàng</label>
+                        <select class="form-select" id="exampleInputPassword1" aria-label="Default select example"
+                                name="LoaiKH">
+                            <option value="1">Khách nội địa</option>
+                            <option value="2">Khách nước ngoài</option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary" value="create">Submit</button>
                 </form>
             </div>

@@ -218,55 +218,7 @@ router.post('/edit/:MaNV',function(req,res,next){
             res.redirect('/staff/');
         }
     });
-
-    /*let MaNV = req.body.MaNV;
-    let TenNV = req.body.TenNV;
-    let DiaChi = req.body.DiaChi;
-    let NgaySinh = req.body.NgaySinh;
-    let SDT = req.body.SDT;
-    let email = req.body.email;
-    let MatKhau = req.body.MatKhau;
-    const bcrypt = require("bcrypt");        
-    var salt = bcrypt.genSaltSync(10);
-    var pass_mahoa = bcrypt.hashSync(MatKhau, salt);
-    let Role = req.body.Role;
-    let errors = false;
-    if (!errors) {
-        var form_data = {
-            MaNV: MaNV,
-            TenNV: TenNV,
-            DiaChi: DiaChi,
-            NgaySinh: NgaySinh,
-            SDT: SDT,
-            email: email,
-            MatKhau: pass_mahoa,
-            Role: Role,
-        }
-            databaseConfig.query('UPDATE nhanvien SET ? WHERE MaNV = ' + MaNV, form_data, function(err, result) {
-                if (err) {
-                    console.log(form_data);
-                    req.flash('error', err)
-                    // render to add.ejs
-                    res.render('admin/staff/edit', {
-
-                        MaNV: form_data.MaNV,
-                        TenNV: form_data.TenNV,
-                        DiaChi: form_data.DiaChi,
-                        NgaySinh: form_data.NgaySinh,
-                        SDT:form_data.SDT,
-                        email:form_data.email,
-                        MatKhau:form_data.pass_mahoa,
-                        Role:form_data.Role,
-                        layout: 'orther',
-                    })
-                } else {
-                    req.flash('success', 'Update Product successfully added');
-                    res.redirect('/staff/');
-                }
-            })
-    }*/
-
-})
+});
 
 // Xóa
 router.get('/delete/(:MaNV)', function (req, res, next) {
@@ -274,15 +226,12 @@ router.get('/delete/(:MaNV)', function (req, res, next) {
     let id = req.params.MaNV;
 
     databaseConfig.query('UPDATE nhanvien SET isDel = 1 WHERE MaNV = ' + id, function (err, result) {
-        //if(err) throw err
         if (err) {
             req.flash('error', err);
             res.redirect('/staff/');
         } else {
-
-            req.flash('success', 'Book successfully deleted! id = ' + id)
-
-            res.redirect('/staff/')
+            req.flash('success', 'Staff successfully deleted! id = ' + id);
+            res.redirect('/staff/');
         }
     })
 })
