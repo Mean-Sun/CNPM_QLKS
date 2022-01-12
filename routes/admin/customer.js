@@ -11,12 +11,14 @@ router.get('/', function (req, res, next) {
             req.flash('error', err);
             res.render('admin/customer/index', {
                 data: '',
+                user: req.session.user,
                 layout: 'orther'
             });
         } else {
             res.render('admin/customer/index',
                 {
                     data: rows,
+                    user: req.session.user,
                     layout: 'orther'
                 });
         }
@@ -27,6 +29,7 @@ router.get('/', function (req, res, next) {
 router.get('/create', function (req, res, next) {
     res.render('admin/customer/create',
         {
+            user: req.session.user,
             layout: 'orther'
         });
 })
@@ -49,6 +52,7 @@ router.post('/create', function (req, res, next) {
         return res.render('admin/customer/create', {
             customer,
             message,
+            user: req.session.user,
             layout: 'orther'
         });
     }
@@ -65,6 +69,7 @@ router.post('/create', function (req, res, next) {
                         res.render('admin/customer/create', {
                             customer,
                             message,
+                            user: req.session.user,
                             layout: 'orther',
                         })
                     } else {
@@ -94,6 +99,7 @@ router.get('/edit/(:MaKH)', function (req, res, next) {
 
         res.render('admin/customer/edit', {
             customer,
+            user: req.session.user,
             layout: 'orther'
         })
     })
@@ -118,6 +124,7 @@ router.post('/edit/:MaKH', function (req, res, next) {
         return res.render('admin/customer/edit', {
             customer,
             message,
+            user: req.session.user,
             layout: 'orther'
         });
     }
@@ -129,6 +136,7 @@ router.post('/edit/:MaKH', function (req, res, next) {
             res.render('admin/customer/edit', {
                 customer,
                 message,
+                user: req.session.user,
                 layout: 'orther',
             })
         } else {

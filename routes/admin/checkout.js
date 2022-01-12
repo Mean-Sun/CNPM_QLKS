@@ -11,15 +11,18 @@ router.get('/', function(req, res, next) {
             req.flash('error', err);
             res.render('admin/rentroom/index', {
                 data: '',
+                user: req.session.user,
                 layout: 'orther'
             });
         } else {
             res.render('admin/rentroom/index', {
                 data: rows,
+                user: req.session.user,
                 layout: 'orther'
             });
         }
 
     })
 })
-module.exports = router
+
+module.exports = router;

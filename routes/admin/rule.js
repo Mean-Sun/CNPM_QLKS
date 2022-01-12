@@ -1,5 +1,5 @@
 var express = require('express');
-var     router = express.Router();
+var router = express.Router();
 var databaseConfig = require('../../models/db');
 var fs = require('fs');
 
@@ -10,12 +10,16 @@ router.get('/', function (req, res, next) {
         if (err) {
             req.flash('error', err);
             res.render('admin/rule/index',
-             { data: '',
-             layout:'orther' });
+                {
+                    data: '',
+                    user: req.session.user,
+                    layout: 'orther'
+                });
         } else {
             res.render('admin/rule/index',
                 {
                     data: rows,
+                    user: req.session.user,
                     layout: 'orther'
                 });
         }
@@ -26,6 +30,7 @@ router.get('/', function (req, res, next) {
 router.get('/create', function (req, res, next) {
     res.render('admin/rule/create',
         {
+            user: req.session.user,
             layout: 'orther'
         });
 })
@@ -41,19 +46,20 @@ router.post('/create', function (req, res, next) {
             id: id,
             Key: Key,
             Value: Value,
-    
+
         }
         databaseConfig.query('INSERT INTO quydinh SET ?', form_data, function (err, result) {
-            if (err) {       
+            if (err) {
                 req.flash('error', err)
                 res.render('admin/rule/create', {
                     id: form_data.id,
                     Key: form_data.Key,
                     Value: form_data.Value,
+                    user: req.session.user,
                     layout: 'orther',
                 })
             } else {
-                req.flash('success','add rule successfully added');
+                req.flash('success', 'add rule successfully added');
                 res.redirect('/rule-info/');
             }
         })
@@ -63,43 +69,44 @@ router.post('/create', function (req, res, next) {
 router.get('/edit/(:id)/', function (req, res, next) {
     let id = req.params.id;
     databaseConfig.query(`SELECT * FROM quydinh where id =` + id, function (err, rows, fields) {
-        if(err) throw err
+        if (err) throw err
         if (rows.length <= 0) {
             req.flash('error', 'Phong not found with id = ' + id)
             res.redirect('/rule-info')
-        }
-        else{
-            res.render('admin/rule/edit',{
-                id:rows[0].id,
-                Key:rows[0].Key,
-                Value:rows[0].Value,
-                layout:'orther'
+        } else {
+            res.render('admin/rule/edit', {
+                id: rows[0].id,
+                Key: rows[0].Key,
+                Value: rows[0].Value,
+                user: req.session.user,
+                layout: 'orther'
             })
         }
     })
 })
 
 // Sửa Phòng
-router.post('/edit/:id', function(req, res, next) {
-   let id = req.params.id
-   let Key = req.body.Key
-   let Value = req.body.Value
-   let errors =false
+router.post('/edit/:id', function (req, res, next) {
+    let id = req.params.id
+    let Key = req.body.Key
+    let Value = req.body.Value
+    let errors = false
     if (!errors) {
         var form_data = {
-          id: id,
-          Key:Key,
-          Value:Value,
+            id: id,
+            Key: Key,
+            Value: Value,
         }
-        databaseConfig.query('UPDATE quydinh SET ? WHERE id = ' + id, form_data, function(err, result) {
+        databaseConfig.query('UPDATE quydinh SET ? WHERE id = ' + id, form_data, function (err, result) {
             if (err) {
                 console.log(form_data);
                 req.flash('error', err)
-                    // render to add.ejs
+                // render to add.ejs
                 res.render('admin/rule/edit', {
-                    id:form_data.id,
-                    Key:form_data.Key,
-                    Value:form_data.Value,
+                    id: form_data.id,
+                    Key: form_data.Key,
+                    Value: form_data.Value,
+                    user: req.session.user,
                     layout: 'orther',
                 })
             } else {
@@ -130,4 +137,4 @@ router.post('/edit/:id', function(req, res, next) {
 //         }
 //     })
 // })
-module.exports=router
+module.exports = router

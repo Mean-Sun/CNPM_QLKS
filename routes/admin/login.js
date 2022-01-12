@@ -60,10 +60,6 @@ router.post('/', function (req, res, next) {
 
                         req.session.user = User;
                         return res.redirect('/');
-                        /*return res.render('admin/auth/login', {
-                            message,
-                            layout: 'orther'
-                        });*/
                     } else {
                         message = 'Mật khẩu không đúng';
                         return res.render('admin/auth/login', {

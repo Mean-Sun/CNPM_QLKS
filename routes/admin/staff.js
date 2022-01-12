@@ -10,13 +10,16 @@ router.get('/', function (req, res, next) {
     databaseConfig.query(sql, function (err, rows) {
         if (err) {
             req.flash('error', err);
-            res.render('admin/staff/index',
-             { data: '',
-             layout:'orther' });
+            res.render('admin/staff/index', {
+                data: '',
+                user: req.session.user,
+                layout: 'orther'
+            });
         } else {
             res.render('admin/staff/index',
                 {
                     data: rows,
+                    user: req.session.user,
                     layout: 'orther'
                 });
         }
@@ -28,6 +31,7 @@ router.get('/', function (req, res, next) {
 router.get('/create', function (req, res, next) {
     res.render('admin/staff/create',
         {
+            user: req.session.user,
             layout: 'orther'
         });
 })
@@ -55,6 +59,7 @@ router.post('/create', function (req, res, next) {
         return res.render('admin/staff/create', {
             staff,
             message,
+            user: req.session.user,
             layout: 'orther'
         });
     }
@@ -64,6 +69,7 @@ router.post('/create', function (req, res, next) {
         return res.render('admin/staff/create', {
             staff,
             message,
+            user: req.session.user,
             layout: 'orther'
         });
     }
@@ -73,6 +79,7 @@ router.post('/create', function (req, res, next) {
         return res.render('admin/staff/create', {
             staff,
             message,
+            user: req.session.user,
             layout: 'orther'
         });
     }
@@ -82,6 +89,7 @@ router.post('/create', function (req, res, next) {
         return res.render('admin/staff/create', {
             staff,
             message,
+            user: req.session.user,
             layout: 'orther'
         });
     }
@@ -91,6 +99,7 @@ router.post('/create', function (req, res, next) {
         return res.render('admin/staff/create', {
             staff,
             message,
+            user: req.session.user,
             layout: 'orther'
         });
     }
@@ -104,6 +113,7 @@ router.post('/create', function (req, res, next) {
                 message = 'Email này đã được sử dụng, vui lòng dùng email khác';
                 return res.render('admin/staff/create', {
                     message,
+                    user: req.session.user,
                     layout: 'orther'
                 });
             }
@@ -113,7 +123,7 @@ router.post('/create', function (req, res, next) {
                     req.flash('error', err);
                 } else {
                     staff.MaNV = rows[0].MaNV + 1;
-                    bcrypt.hash(staff.MatKhau, 10, function(err, hash) {
+                    bcrypt.hash(staff.MatKhau, 10, function (err, hash) {
                         //console.log(hash);
                         staff.MatKhau = hash;
                         databaseConfig.query('INSERT INTO nhanvien SET ?', staff, function (err, result) {
@@ -122,6 +132,7 @@ router.post('/create', function (req, res, next) {
                                 return res.render('admin/staff/create', {
                                     staff,
                                     message,
+                                    user: req.session.user,
                                     layout: 'orther'
                                 });
                             } else {
@@ -140,7 +151,7 @@ router.post('/create', function (req, res, next) {
 router.get('/edit/(:MaNV)', function (req, res, next) {
     const id = req.params.MaNV;
     databaseConfig.query(`SELECT * FROM nhanvien where MaNV =` + id, function (err, rows, fields) {
-        if(err) throw err;
+        if (err) throw err;
         else {
             const staff = {
                 MaNV: id,
@@ -153,16 +164,17 @@ router.get('/edit/(:MaNV)', function (req, res, next) {
                 isDel: rows[0].isDel,
             }
 
-            res.render('admin/staff/edit',{
+            res.render('admin/staff/edit', {
                 staff,
-                layout:'orther'
+                user: req.session.user,
+                layout: 'orther'
             })
         }
     })
 })
 
 // edit staff
-router.post('/edit/:MaNV',function(req,res,next){
+router.post('/edit/:MaNV', function (req, res, next) {
 
     let staff = {
         MaNV: req.params.MaNV,
@@ -182,6 +194,7 @@ router.post('/edit/:MaNV',function(req,res,next){
         return res.render('admin/staff/edit', {
             staff,
             message,
+            user: req.session.user,
             layout: 'orther'
         });
     }
@@ -191,6 +204,7 @@ router.post('/edit/:MaNV',function(req,res,next){
         return res.render('admin/staff/edit', {
             staff,
             message,
+            user: req.session.user,
             layout: 'orther'
         });
     }
@@ -200,17 +214,19 @@ router.post('/edit/:MaNV',function(req,res,next){
         return res.render('admin/staff/edit', {
             staff,
             message,
+            user: req.session.user,
             layout: 'orther'
         });
     }
 
-    databaseConfig.query('UPDATE nhanvien SET ? WHERE MaNV = ' + staff.MaNV, staff, function(err, result) {
+    databaseConfig.query('UPDATE nhanvien SET ? WHERE MaNV = ' + staff.MaNV, staff, function (err, result) {
         if (err) {
             req.flash('error', err);
             message = "Đã có lỗi xảy ra, vui lòng kiểm tra lại dữ liệu";
             res.render('admin/staff/edit', {
                 staff,
                 message,
+                user: req.session.user,
                 layout: 'orther',
             })
         } else {

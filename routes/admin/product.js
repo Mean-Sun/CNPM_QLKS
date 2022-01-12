@@ -64,6 +64,7 @@ router.get('/product/', function (req, res, next) {
             res.render('admin/products/index',
                 {
                     data: rows,
+                    user: req.session.user,
                     layout: 'orther'
                 });
         }
@@ -74,7 +75,8 @@ router.get('/product/', function (req, res, next) {
 router.get('/product/create', function (req, res, next) {
     res.render('admin/products/create',
         {
-            layout: 'orther'
+            user: req.session.user,
+layout: 'orther'
         });
 })
 //add new product
@@ -109,7 +111,8 @@ router.post('/product/create',imageUploader, function (req, res, next) {
                     quanlity: form_data.quanlity,
                     size: form_data.size,
                     price: form_data.price,
-                    layout: 'orther',
+                    user: req.session.user,
+layout: 'orther',
                 })
             } else {
                 req.flash('success', 'Product successfully added');
@@ -174,6 +177,7 @@ router.post('/product/edit/:id',function(req,res,next){
         //                 quanlity: form_data.quanlity,
         //                 size: form_data.size,
         //                 price: form_data.price,
+        //                 user: req.session.user,
         //                 layout: 'orther',
         //             })
         //         } else {
@@ -200,6 +204,7 @@ router.post('/product/edit/:id',function(req,res,next){
                         quanlity: form_data.quanlity,
                         size: form_data.size,
                         price: form_data.price,
+                        user: req.session.user,
                         layout: 'orther',
                     })
                 } else {

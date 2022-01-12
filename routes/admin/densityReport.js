@@ -7,6 +7,7 @@ var fs = require('fs');
 router.get('/', function (req, res, next) {
 
     res.render('admin/densityReport/index', {
+        user: req.session.user,
         layout: 'orther'
     });
 })
@@ -26,16 +27,18 @@ router.post('/', function (req, res, next) {
             req.flash('error', err);
             res.render('admin/densityReport/index', {
                 data: '',
+                user: req.session.user,
                 layout: 'orther'
             });
         } else {
             console.log(rows);
             res.render('admin/densityReport/index', {
                 data: rows[2],
+                user: req.session.user,
                 layout: 'orther'
             });
         }
-        layout: 'orther'
     });
 })
-module.exports = router
+
+module.exports = router;

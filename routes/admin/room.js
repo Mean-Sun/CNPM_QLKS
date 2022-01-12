@@ -4,19 +4,21 @@ var databaseConfig = require('../../models/db');
 var fs = require('fs');
 
 // Danh sách phòng
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
     const sql = 'SELECT * FROM phong, loaiphong where phong.type = loaiphong.MaLoai ORDER BY MaPhong'
-    databaseConfig.query(sql, function(err, rows) {
+    databaseConfig.query(sql, function (err, rows) {
         if (err) {
             req.flash('error', err);
             res.render('admin/room/index', {
                 data: '',
+                user: req.session.user,
                 layout: 'orther'
             });
         } else {
             console.log(rows);
             res.render('admin/room/index', {
                 data: rows,
+                user: req.session.user,
                 layout: 'orther'
             });
         }
@@ -25,22 +27,24 @@ router.get('/', function(req, res, next) {
 })
 
 // Get view add Product
-router.get('/create', function(req, res, next) {
+router.get('/create', function (req, res, next) {
     // res.render('admin/room/create', {
     //     layout: 'orther'
     // });
     const sql = 'Select MaLoai FROM loaiphong'
-    databaseConfig.query(sql, function(err, rows) {
+    databaseConfig.query(sql, function (err, rows) {
         if (err) {
             req.flash('error', err);
             res.render('admin/room/index', {
                 data: '',
+                user: req.session.user,
                 layout: 'orther'
             });
         } else {
             console.log(rows);
             res.render('admin/room/create', {
                 data: rows,
+                user: req.session.user,
                 layout: 'orther'
             });
         }
@@ -49,7 +53,7 @@ router.get('/create', function(req, res, next) {
 })
 
 // add room
-router.post('/create', function(req, res, next) {
+router.post('/create', function (req, res, next) {
     let MaPhong = req.body.MaPhong;
     let name = req.body.name;
     let type = req.body.type;
@@ -64,18 +68,19 @@ router.post('/create', function(req, res, next) {
             status: status,
             note: note,
         }
-        databaseConfig.query('INSERT INTO phong SET ?', form_data, function(err, result) {
+        databaseConfig.query('INSERT INTO phong SET ?', form_data, function (err, result) {
             if (err) {
                 // console.log(form_data.image);
                 req.flash('error', err)
                 console.log(err)
-                    // render to add.ejs
+                // render to add.ejs
                 res.render('admin/room/create', {
                     MaPhong: form_data.MaPhong,
                     name: form_data.name,
                     type: form_data.type,
                     status: form_data.status,
                     note: form_data.note,
+                    user: req.session.user,
                     layout: 'orther',
                 })
             } else {
@@ -87,9 +92,9 @@ router.post('/create', function(req, res, next) {
 })
 
 // get view edit
-router.get('/edit/(:MaPhong)', function(req, res, next) {
+router.get('/edit/(:MaPhong)', function (req, res, next) {
     let id = req.params.MaPhong;
-    databaseConfig.query(`SELECT * FROM phong where MaPhong =` + id, function(err, rows, fields) {
+    databaseConfig.query(`SELECT * FROM phong where MaPhong =` + id, function (err, rows, fields) {
         if (err) throw err
         if (rows.length <= 0) {
             req.flash('error', 'Phong not found with MaPhong = ' + id)
@@ -101,6 +106,7 @@ router.get('/edit/(:MaPhong)', function(req, res, next) {
                 type: rows[0].type,
                 status: rows[0].status,
                 note: rows[0].note,
+                user: req.session.user,
                 layout: 'orther'
             })
         }
@@ -108,7 +114,7 @@ router.get('/edit/(:MaPhong)', function(req, res, next) {
 })
 
 // Sửa Phòng
-router.post('/edit/:MaPhong', function(req, res, next) {
+router.post('/edit/:MaPhong', function (req, res, next) {
     let MaPhong = req.body.MaPhong;
     let name = req.body.name;
     let type = req.body.type;
@@ -123,17 +129,18 @@ router.post('/edit/:MaPhong', function(req, res, next) {
             status: status,
             note: note,
         }
-        databaseConfig.query('UPDATE phong SET ? WHERE MaPhong = ' + MaPhong, form_data, function(err, result) {
+        databaseConfig.query('UPDATE phong SET ? WHERE MaPhong = ' + MaPhong, form_data, function (err, result) {
             if (err) {
                 console.log(form_data);
                 req.flash('error', err)
-                    // render to add.ejs
+                // render to add.ejs
                 res.render('admin/room/edit', {
                     MaPhong: form_data.MaPhong,
                     name: form_data.name,
                     type: form_data.type,
                     status: form_data.status,
                     note: form_data.note,
+                    user: req.session.user,
                     layout: 'orther',
                 })
             } else {
@@ -147,21 +154,21 @@ router.post('/edit/:MaPhong', function(req, res, next) {
 
 // Xóa 
 
-router.get('/delete/(:MaPhong)', function(req, res, next) {
+router.get('/delete/(:MaPhong)', function (req, res, next) {
 
     let id = req.params.MaPhong;
 
-    databaseConfig.query('DELETE FROM phong WHERE MaPhong = ' + id, function(err, result) {
+    databaseConfig.query('DELETE FROM phong WHERE MaPhong = ' + id, function (err, result) {
         //if(err) throw err
         if (err) {
             // set flash message
             req.flash('error', err)
-                // redirect to books page
+            // redirect to books page
             res.redirect('/room/')
         } else {
             // set flash message
             req.flash('success', 'Room successfully deleted! ID = ' + id)
-                // redirect to books page
+            // redirect to books page
             res.redirect('/room/')
         }
     })

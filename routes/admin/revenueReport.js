@@ -2,13 +2,14 @@ var express = require('express');
 var router = express.Router();
 var databaseConfig = require('../../models/db');
 var fs = require('fs');
-const { parse } = require('path');
+const {parse} = require('path');
 
 
 // Get view add Product
 router.get('/', function (req, res, next) {
 
     res.render('admin/revenueReport/index', {
+        user: req.session.user,
         layout: 'orther'
     });
 })
@@ -29,16 +30,17 @@ router.post('/', function (req, res, next) {
             req.flash('error', err);
             res.render('admin/revenueReport/index', {
                 data: '',
+                user: req.session.user,
                 layout: 'orther'
             });
         } else {
             console.log(rows);
             res.render('admin/revenueReport/index', {
                 data: rows[2],
+                user: req.session.user,
                 layout: 'orther'
             });
         }
-        layout: 'orther'
     });
 })
 module.exports = router
