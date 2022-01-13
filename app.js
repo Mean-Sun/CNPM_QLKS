@@ -23,6 +23,7 @@ const customerRouter = require('./routes/admin/customer');
 const revenueRouter = require('./routes/admin/revenueReport');
 const loginRouter = require('./routes/admin/login');
 const logoutRouter = require('./routes/admin/logout');
+const myAccRouter = require('./routes/admin/myAcc');
 const densityRouter = require('./routes/admin/densityReport');
 const app = express();
 
@@ -83,6 +84,7 @@ app.use('/customer',customerRouter);
 app.use('/revenueReport',revenueRouter);
 app.use('/densityReport',densityRouter);
 app.use('/logout', logoutRouter);
+app.use('/myAcc', myAccRouter);
 
 
 // catch 404 and forward to error handler

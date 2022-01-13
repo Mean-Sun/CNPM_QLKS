@@ -1,0 +1,89 @@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="row">
+            <div class="col-sm-11">
+                <h6 class="m-0 font-weight-bold text-primary">Sửa thông tin nhân viên</h6>
+            </div>
+            {{!-- <div class="col-sm-1">
+                <a style="font-size: 12px;" class="btn btn-info" href="/create">Thêm mới</a>
+            </div> --}}
+        </div>
+    </div>
+    {{#if message}}
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-sm-11">
+                    <h4 class="m-0 font-weight-bold text-primary" >{{message}}</h4>
+                </div>
+            </div>
+        </div>
+    {{/if}}
+    <div class="card-body">
+        <div style="overflow: hidden;" class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <form action="/myAcc/edit" method="post" id="createForm" >
+                    <!--<div class="form-group">
+                        <label for="exampleInputEmail1">Mã nhân viên</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter email" name="MaNV" value="{{MaNV}}">
+                    </div>-->
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Tên nhân viên</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1"
+                               name="TenNV" value="{{staff.TenNV}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Địa chỉ</label>
+                        <input type="text" class="form-control" id="exampleInputPassword1"
+                               name="DiaChi" value="{{staff.DiaChi}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Ngày sinh</label>
+                        <input type="date" class="form-control" id="exampleInputPassword1"
+                               name="NgaySinh" value="{{staff.NgaySinh}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Số điện thoại</label>
+                        <input class="form-control" id="exampleInputPassword1"
+                               name="SDT" value="{{staff.SDT}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Email</label>
+                        <input class="form-control" id="exampleInputPassword1"
+                               name="email" value="{{staff.email}}">
+                    </div>
+                    <!--<div class="form-group">
+                        <label for="exampleFormControlFile1">Mật khẩu Mới</label>
+                          <input class="form-control" id="exampleInputPassword1"  type="password"
+                            name="MatKhau" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Xác nhận Mật khẩu</label>
+                        <input class="form-control" id="exampleInputPassword1" type="password"
+                               name="reMatKhau" value="">
+                    </div>-->
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">isDel</label>
+                        <input class="form-control" id="exampleInputPassword1" type="number" min="0" max="1"
+                               name="isDel" value="{{staff.isDel}}">
+                    </div>
+                    {{!-- <div class="form-group">
+                        <label for="exampleFormControlFile1">Chức vụ</label>
+                          <input class="form-control" id="exampleInputPassword1"
+                            name="Role" value="{{Role}}">
+                    </div> --}}
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Chức vụ</label>
+                        <select class="form-select" id="exampleInputPassword1" aria-label="Default select example" name="Role" >
+                            <option value="Admin">Admin</option>
+                            <option value="NV">Nhân viên</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2" value="create">Submit</button>
+                    <a href="/myAcc/changePassword/" class="btn btn-primary mt-2" value="create">ChangePassword</a>
+                    <a href="/myAcc/delete/" onclick="return confirm('Are You sure?')" class="btn btn-primary mt-2" value="create">Delete</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

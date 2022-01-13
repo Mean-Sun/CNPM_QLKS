@@ -35,7 +35,7 @@ router.post('/', function (req, res, next) {
         });
     }
 
-    let sql = `SELECT * FROM nhanvien WHERE email = "` + acc.email + `"`;
+    let sql = `SELECT * FROM nhanvien WHERE email = "` + acc.email + `" and isDel = 0`;
     databaseConfig.query(sql, function (err, rows) {
         if (err) {
             req.flash('error', err);
