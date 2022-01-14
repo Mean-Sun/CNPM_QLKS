@@ -5,7 +5,7 @@ var fs = require('fs');
 const {parse} = require('path');
 
 
-// Get view add Product
+// Get view revenue report
 router.get('/', function (req, res, next) {
 
     res.render('admin/revenueReport/index', {
@@ -14,6 +14,7 @@ router.get('/', function (req, res, next) {
     });
 })
 
+// Get revenue report data by month
 router.post('/', function (req, res, next) {
     var thang = parseInt(req.body.Thang)
     const sql = `
