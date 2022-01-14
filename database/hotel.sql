@@ -14,6 +14,7 @@ CREATE TABLE `khachhang` (
   `TenKH` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `CMND` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `SDT` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `isDel` tinyint(1) NOT NULL DEFAULT '0',
   `DiaChi` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `LoaiKH` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -49,6 +50,7 @@ CREATE TABLE `nhanvien` (
   `SDT` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `MatKhau` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isDel` tinyint(1) NOT NULL DEFAULT '0',
   `Role` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
