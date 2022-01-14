@@ -3,7 +3,7 @@ var router = express.Router();
 var databaseConfig = require('../../models/db');
 var fs = require('fs');
 
-
+// Get density report view
 router.get('/', function (req, res, next) {
 
     res.render('admin/densityReport/index', {
@@ -12,6 +12,7 @@ router.get('/', function (req, res, next) {
     });
 })
 
+// Get density report data by month
 router.post('/', function (req, res, next) {
     var thang = parseInt(req.body.Thang)
     const sql = `
